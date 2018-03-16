@@ -170,7 +170,7 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
       )
 
     -- Un-Float Window
-    , ( ( modm .|. shiftMask .|. controlMask, xK_space )
+    , ( ( modm .|. controlMask, xK_z )
       , withFocused <| windows <. W.sink
       )
 
