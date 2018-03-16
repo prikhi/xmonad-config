@@ -38,6 +38,10 @@ myConfig = do
             mod4Mask
         , focusFollowsMouse =
             True
+        , normalBorderColor =
+            Theme.background
+        , focusedBorderColor =
+            Theme.orange
         , layoutHook =
             layoutHook def |> myLayoutHook
         , logHook =
