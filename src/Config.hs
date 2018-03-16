@@ -3,6 +3,7 @@ module Config where
 
 import XMonad
 import XMonad.Actions.CycleWS
+import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 import XMonad.Prompt (XPConfig(..), XPPosition(..))
@@ -150,18 +151,18 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
 
     -- Cycle Through Screens
     , ( ( modm .|. controlMask, xK_j )
-      , nextScreen
+      , nextScreen >> moveCursorToFocus
       )
     , ( ( modm .|. controlMask, xK_k )
-      , prevScreen
+      , prevScreen >> moveCursorToFocus
       )
 
     -- Move Through Screens
     , ( ( modm, xK_i )
-      , shiftPrevScreen >> prevScreen
+      , shiftPrevScreen >> prevScreen >> moveCursorToFocus
     )
     , ( ( modm, xK_o )
-      , shiftNextScreen >> nextScreen
+      , shiftNextScreen >> nextScreen >> moveCursorToFocus
     )
 
     -- Jump to Previous Workspace on Screen
@@ -294,5 +295,10 @@ promptConfig = def
 onScreen :: ScreenId -> WindowSpace -> Bool
 onScreen (S screenId) ws =
     (show screenId ++ "_") `isPrefixOf` W.tag ws
+
+-- | Move the Cursor to Approximately the Center of the Focused Window
+moveCursorToFocus :: X ()
+moveCursorToFocus =
+    updatePointer (0.5, 0.65) (0.25, 0.25)
 
 -- }}}
