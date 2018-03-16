@@ -9,13 +9,16 @@ copyright:           "GPL-3.0"
 description:         My xmonad Configuration
 
 
+dependencies:
+  - base >= 4.7 && < 5
+  - xmonad
+
+
 library:
   source-dirs: src
   dependencies:
-    - base >= 4.7 && < 5
     - containers
     - flow
-    - xmonad
     - xmonad-contrib
 
 
@@ -32,6 +35,4 @@ executable:
     - -with-rtsopts=-N
     - -Wall
   dependencies:
-    - base >= 4.7 && < 5
     - xmonad-prikhi
-    - xmonad

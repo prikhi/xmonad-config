@@ -44,6 +44,7 @@ Things Awesome does that I like:
 
 Extra things I want it to do:
 
+* Quick note taking to a file
 * Proper dynamic tagging + autotagging new windows
   (sometimes assigned tags get fucked in awesome)
 * Per monitor available or default layouts
