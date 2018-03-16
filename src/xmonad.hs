@@ -3,11 +3,12 @@ module Main where
 
 import XMonad
 import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 import XMonad.Util.Run (spawnPipe)
-import System.IO
+import System.IO (Handle, hPutStrLn)
 
 
+main :: IO ()
 main =
     xmonad =<< myConfig
 
@@ -38,6 +39,7 @@ myLayoutHook =
 
 
 -- | Output the workspace & window information to `xmobar`.
+myLogHook :: Handle -> X ()
 myLogHook statusBarHandle =
     dynamicLogWithPP xmobarPP
         { ppOutput = hPutStrLn statusBarHandle

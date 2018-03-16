@@ -1,4 +1,3 @@
-xmonad.hi
-xmonad.o
-xmonad-x86_64-linux
-xmonad.errors
+.stack-work/
+xmonad-prikhi.cabal
+*~

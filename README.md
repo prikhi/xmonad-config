@@ -4,6 +4,15 @@ I really like awesome but would love to write configs in haskell instead of
 lua.
 
 
+## Usage
+
+* Clone this repo to somewhere like `~/.config/xmonad/`.
+* In `~/.xprofile` set `XDG_CONFIG_DIR` to this folder.
+* Log out & in to reload `.xprofile` & run `xmonad --recompile`.
+
+While developing, you can run `stack build --file-watch`.
+
+
 ## TODO:
 
 Things Awesome does that I like:
@@ -44,3 +53,8 @@ Extra things I want it to do:
     * If first load of gimp, put main in center & toolbars to left right side,
       all floating.
 * Build w/ Stack
+
+
+## License
+
+GPL-3.0
