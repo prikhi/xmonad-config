@@ -40,7 +40,7 @@ myConfig = do
         , layoutHook =
             layoutHook def |> myLayoutHook
         , logHook =
-            logHook def >> myLogHook statusBarHandle
+            myLogHook statusBarHandle
         , workspaces =
             myWorkspaces screenCount
         , manageHook =
