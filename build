@@ -4,6 +4,6 @@ set -e
 cd "${HOME}/.config/xmonad/"
 
 unset STACK_YAML
-stack build -j8 --pedantic
+stack build -j8
 
 ln -f -T $(stack exec -- which xmonad-prikhi) $1
