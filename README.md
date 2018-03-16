@@ -39,7 +39,7 @@ Things Awesome does that I like:
 * Toggling workrave / compton
 * Autostart apps(runonce)
 * Keep on Top keybinding
-* Swap w/ Master
+* Set New Windows as Slaves
 
 Extra things I want it to do:
 

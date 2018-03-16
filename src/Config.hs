@@ -6,8 +6,10 @@ import XMonad.Actions.CycleWS
 import XMonad.Hooks.DynamicLog
 
 import XMonad.Actions.UpdatePointer (updatePointer)
+import XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 import XMonad.Layout.IndependentScreens (countScreens, withScreens, onCurrentScreen, workspaces')
+import XMonad.Layout.NoBorders (noBorders)
 import XMonad.Prompt (XPConfig(..), XPPosition(..))
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Util.Run (spawnPipe)
@@ -44,16 +46,19 @@ myConfig = do
         , focusedBorderColor =
             Theme.orange
         , layoutHook =
-            layoutHook def |> myLayoutHook
+            myLayoutHook
         , logHook =
             myLogHook statusBarHandle
         , workspaces =
             myWorkspaces screenCount
         , manageHook =
             myManageHook <+> manageHook def
+        , handleEventHook =
+            fullscreenEventHook <+> handleEventHook def
         , keys =
             myKeys
         }
+        |> ewmh
         |> docks
         |> (return :: a -> IO a)
 
@@ -63,9 +68,21 @@ myConfig = do
 
 -- {{{ LAYOUTS
 
--- | Prevent windows from overlapping status bar.
+-- | Prevent tiled windows from overlapping status bar & remove borders
+-- from the fullscreen layout.
 myLayoutHook =
-    avoidStruts
+    avoidStruts (tiled ||| Mirror tiled) ||| fullscreenBorderless
+    where
+        fullscreenBorderless =
+            noBorders Full
+        tiled =
+            Tall nmaster delta mwfact
+        nmaster =
+            1
+        delta =
+            3 / 100
+        mwfact =
+            1 / 3
 
 -- }}}
 
