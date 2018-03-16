@@ -43,7 +43,7 @@ myConfig = do
             myKeys
         }
         |> docks
-        |> return
+        |> (return :: a -> IO a)
 
 -- }}}
 

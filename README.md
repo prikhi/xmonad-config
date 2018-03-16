@@ -17,7 +17,7 @@ While developing, you can run `stack build --file-watch`.
 
 Things Awesome does that I like:
 
-* Focus Follows Mouse, Mouse Follows Focus
+* Mouse Follows Focus
 * Independent Workspaces per Monitor
 * Directional move & shift, better switch/move to monitor bindings, cycle tags, etc.
 * Keyboard shortcut popup
@@ -36,7 +36,6 @@ Things Awesome does that I like:
 * Per-Monitor status bars
 * Increase / Decrease Column Count
 * Jump to Urgent
-* Run Prompt
 * ncmpcpp dropdown
 * Toggling workrave / compton
 * Autostart apps(runonce)
@@ -49,6 +48,7 @@ Extra things I want it to do:
   (sometimes assigned tags get fucked in awesome)
 * Per monitor available or default layouts
   (vertical stack portrait monitor by default)
+* Jump to window prompt w/ autocomplete
 * Workspace-specific positioning on init
     * Gimp: Put image in center & toolbars to left & right side, all floating.
     * Audio: non-mixer & jamin stacked on left, Claudia on right
