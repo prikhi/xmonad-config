@@ -78,18 +78,18 @@ myLogHook statusBarHandle =
 
 floatingClasses :: [String]
 floatingClasses =
-  [ "Gimp"
-  , "pinentry"
-  , "keepassx"
-  , "pidgin"
-  , "Mumble"
-  , "Steam"
-  , "VirtualBox"
-  ]
+    [ "Gimp"
+    , "pinentry"
+    , "keepassx"
+    , "pidgin"
+    , "Mumble"
+    , "Steam"
+    , "VirtualBox"
+    ]
 
 myManageHook :: Query (Endo WindowSet)
 myManageHook = composeAll <|
-  map (\name -> className =? name --> doFloat) floatingClasses
+    map (\name -> className =? name --> doFloat) floatingClasses
 
 -- }}}
 
