@@ -50,9 +50,11 @@ Extra things I want it to do:
 * Per monitor available or default layouts
   (vertical stack portrait monitor by default)
 * Workspace-specific positioning on init
-    * If first load of gimp, put main in center & toolbars to left right side,
-      all floating.
-* Build w/ Stack
+    * Gimp: Put image in center & toolbars to left & right side, all floating.
+    * Audio: non-mixer & jamin stacked on left, Claudia on right
+* Project-specific workspaces that open terminals and run commands
+    * SESE Website: Open main term w/ server/client vim & file tabs, another
+      term w/ files & server repl tabs, & third term with build script
 
 
 ## License

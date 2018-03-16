@@ -4,6 +4,8 @@ module Main where
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
+import XMonad.Prompt (XPConfig(..), XPPosition(..))
+import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Util.Run (spawnPipe)
 
 import Data.Monoid (Endo)
@@ -39,7 +41,7 @@ myConfig = do
         , logHook =
             logHook def >> myLogHook statusBarHandle
         , manageHook =
-            myManageHook
+            myManageHook <+> manageHook def
         , keys =
             myKeys
         }
@@ -67,7 +69,7 @@ myLogHook :: Handle -> X ()
 myLogHook statusBarHandle =
     dynamicLogWithPP xmobarPP
         { ppOutput = hPutStrLn statusBarHandle
-        , ppTitle = xmobarColor "#A6E22E" "" . shorten 50
+        , ppTitle = xmobarColor "#A6E22E" "" . shorten 50   -- TODO: Theme Variables
         }
 
 -- }}}
@@ -103,8 +105,19 @@ myKeys :: XConfig l -> KeyMap
 myKeys c@XConfig { modMask = modm } = Map.fromList $
     [
 
+    -- EXTENSIONS
+
+    -- Shell Prompt
+      ( ( modm, xK_x )
+      , shellPrompt promptConfig
+      )
+
+
+    -- GENERAL
+
+
     -- Run Terminal on <M-Enter>
-      ( ( modm, xK_Return )
+    , ( ( modm, xK_Return )
       , spawn <| terminal c
       )
 
@@ -190,5 +203,20 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
     , (action, mask) <- [ ( W.view, 0 ), ( W.shift, shiftMask ) ]
     ]
 
+
+-- }}}
+
+
+
+-- {{{ PROMPT CONFIGURATION
+
+-- | TODO: Theme this like Molokai
+promptConfig :: XPConfig
+promptConfig = def
+    { font =
+        "xft:Dina:size=8"
+    , position =
+        Top
+    }
 
 -- }}}
