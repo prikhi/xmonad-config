@@ -7,7 +7,7 @@ lua.
 ## Usage
 
 * Clone this repo to somewhere like `~/.config/xmonad/`.
-* In `~/.xprofile` set `XDG_CONFIG_DIR` to this folder.
+* In `~/.xprofile` set `XMONAD_CONFIG_DIR` to this folder.
 * Log out & in to reload `.xprofile` & run `xmonad --recompile`.
 
 While developing, you can run `stack build --file-watch`.
