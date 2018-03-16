@@ -7,6 +7,7 @@ import XMonad.Hooks.DynamicLog
 
 import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
+import XMonad.Hooks.InsertPosition (insertPosition, Focus(Newer), Position(End))
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 import XMonad.Layout.IndependentScreens (countScreens, withScreens, onCurrentScreen, workspaces')
 import XMonad.Layout.NoBorders (noBorders)
@@ -52,7 +53,7 @@ myConfig = do
         , workspaces =
             myWorkspaces screenCount
         , manageHook =
-            myManageHook <+> manageHook def
+            insertPosition End Newer <+> myManageHook
         , handleEventHook =
             fullscreenEventHook <+> handleEventHook def
         , keys =
