@@ -66,7 +66,7 @@ myLogHook :: Handle -> X ()
 myLogHook statusBarHandle =
     dynamicLogWithPP xmobarPP
         { ppOutput = hPutStrLn statusBarHandle
-        , ppTitle = xmobarColor "#A6E22E" "" . shorten 50   -- TODO: Theme Variables
+        , ppTitle = xmobarColor Theme.green "" . shorten 50   -- TODO: Theme Variables
         }
 
 -- }}}
