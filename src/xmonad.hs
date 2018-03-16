@@ -32,8 +32,8 @@ myConfig = do
             "urxvt"
         , modMask =
             mod4Mask
-        , borderWidth =
-            1
+        , focusFollowsMouse =
+            True
         , layoutHook =
             layoutHook def |> myLayoutHook
         , logHook =
