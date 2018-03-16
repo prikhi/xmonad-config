@@ -2,6 +2,7 @@ module Config where
 
 
 import XMonad
+import XMonad.Actions.CycleWS
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 import XMonad.Prompt (XPConfig(..), XPPosition(..))
@@ -9,6 +10,7 @@ import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Util.Run (spawnPipe)
 import XMonad.Layout.IndependentScreens (countScreens, withScreens, onCurrentScreen, workspaces')
 
+import Data.List (isPrefixOf)
 import Data.Monoid (Endo)
 import Flow
 import System.Exit (exitSuccess)
@@ -126,6 +128,51 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
       , shellPrompt promptConfig
       )
 
+    -- Cycle Through Workspaces
+    , ( ( modm, xK_Right )
+      , withWindowSet $
+            W.current
+                .> W.screen
+                .> onScreen
+                .> return
+                .> WSIs
+                .> moveTo Next
+    )
+    , ( ( modm, xK_Left )
+      , withWindowSet $
+            W.current
+                .> W.screen
+                .> onScreen
+                .> return
+                .> WSIs
+                .> moveTo Prev
+      )
+
+    -- Cycle Through Screens
+    , ( ( modm .|. controlMask, xK_j )
+      , nextScreen
+      )
+    , ( ( modm .|. controlMask, xK_k )
+      , prevScreen
+      )
+
+    -- Move Through Screens
+    , ( ( modm, xK_i )
+      , shiftPrevScreen >> prevScreen
+    )
+    , ( ( modm, xK_o )
+      , shiftNextScreen >> nextScreen
+    )
+
+    -- Jump to Previous Workspace on Screen
+    , ( ( modm, xK_semicolon )
+      , withWindowSet $ \ss ->
+          W.workspaces ss
+            |> filter (onScreen (W.current ss |> W.screen) .> not)
+            |> map W.tag
+            |> toggleWS'
+      )
+
 
     -- GENERAL
 
@@ -208,14 +255,6 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
     | (index, key) <- zip (workspaces' c) [xK_1 .. xK_9]
     , (action, mask) <- [ ( W.greedyView, 0 ), ( W.shift, shiftMask ) ]
     ]
-    ++
-    -- Switch to Left / Center / Right Monitors
-    [ ( ( modm .|. mask, key )
-      , screenWorkspace screen >>= flip whenJust (action .> windows)
-      )
-    | (key, screen) <- zip [xK_e, xK_w, xK_r] [0 ..]    -- middle = screen 0
-    , (action, mask) <- [ ( W.view, 0 ), ( W.shift, shiftMask ) ]
-    ]
 
 
 -- }}}
@@ -241,5 +280,19 @@ promptConfig = def
     , bgHLight =
         Theme.promptBackgroundHighlight
     }
+
+-- }}}
+
+
+
+-- {{{ UTILS
+
+-- | Determine if the `WindowSpace` is on the supplied `Screen`.
+--
+-- Assumes that the tag has been prefixed by the IndependentScreens
+-- extension to contain `1_` where `1` is the tag's screen number.
+onScreen :: ScreenId -> WindowSpace -> Bool
+onScreen (S screenId) ws =
+    (show screenId ++ "_") `isPrefixOf` W.tag ws
 
 -- }}}

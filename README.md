@@ -18,7 +18,7 @@ While developing, you can run `stack build --file-watch`.
 Things Awesome does that I like:
 
 * Mouse Follows Focus
-* Directional move & shift, better switch/move to monitor bindings, cycle tags, etc.
+* Directional move & shift, etc.
 * Keyboard shortcut popup
 * On click tag selection
 * Multiple tag viewing, Clients on multiple tags
@@ -30,12 +30,12 @@ Things Awesome does that I like:
 * Active / Inactive Tag Colors, "Has Windows" Icons
 * MPD, CPU, Net, Systray, Clock Widget
 * List all windows on current tag
-* Click window to minimize
+* Click window in taskbar to minimize
 * Minimize / Maximize windows
 * Per-Monitor status bars
 * Increase / Decrease Column Count
 * Jump to Urgent
-* ncmpcpp dropdown
+* ncmpcpp dropdown  (Util.Scratchpad)
 * Toggling workrave / compton
 * Autostart apps(runonce)
 * Keep on Top keybinding
@@ -43,7 +43,7 @@ Things Awesome does that I like:
 
 Extra things I want it to do:
 
-* Quick note taking to a file
+* Quick note taking to a file   (Prompt.AppendFile)
 * Proper dynamic tagging + autotagging new windows
   (sometimes assigned tags get fucked in awesome)
 * Per monitor available or default layouts
