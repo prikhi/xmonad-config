@@ -16,6 +16,7 @@ import System.IO (Handle, hPutStrLn)
 import qualified Data.Map as Map
 import qualified XMonad.StackSet as W
 
+import qualified Theme
 
 
 -- {{{ CONFIGURATION
@@ -206,13 +207,22 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
 
 -- {{{ PROMPT CONFIGURATION
 
--- | TODO: Theme this like Molokai
 promptConfig :: XPConfig
 promptConfig = def
-    { font =
-        "xft:Dina:size=8"
+    { promptBorderWidth =
+        0
     , position =
         Top
+    , font =
+        Theme.xftFont
+    , fgColor =
+        Theme.promptForeground
+    , bgColor =
+        Theme.promptBackground
+    , fgHLight =
+        Theme.promptForegroundHighlight
+    , bgHLight =
+        Theme.promptBackgroundHighlight
     }
 
 -- }}}
