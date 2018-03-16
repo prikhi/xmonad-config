@@ -1,4 +1,4 @@
-module Main where
+module Config where
 
 
 import XMonad
@@ -16,10 +16,6 @@ import System.IO (Handle, hPutStrLn)
 import qualified Data.Map as Map
 import qualified XMonad.StackSet as W
 
-
-main :: IO ()
-main =
-    myConfig >>= xmonad
 
 
 -- {{{ CONFIGURATION

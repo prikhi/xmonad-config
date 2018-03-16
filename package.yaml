@@ -8,24 +8,30 @@ copyright:           "GPL-3.0"
 
 description:         My xmonad Configuration
 
-dependencies:
-  - base >= 4.7 && < 5
-  - containers
-  - flow
-  - xmonad
-  - xmonad-contrib
 
-executables:
-  xmonad-prikhi:
-    main:                xmonad.hs
-    source-dirs:         src
-    other-modules:       []
-    ghc-options:
-      - -i
-      - -ilib
-      - -fforce-recomp
-      - -v0
-      - -threaded
-      - -rtsopts
-      - -with-rtsopts=-N
-      - -Wall
+library:
+  source-dirs: src
+  dependencies:
+    - base >= 4.7 && < 5
+    - containers
+    - flow
+    - xmonad
+    - xmonad-contrib
+
+
+executable:
+  main: xmonad.hs
+  other-modules: []
+  ghc-options:
+    - -i
+    - -ilib
+    - -fforce-recomp
+    - -v0
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -Wall
+  dependencies:
+    - base >= 4.7 && < 5
+    - xmonad-prikhi
+    - xmonad
