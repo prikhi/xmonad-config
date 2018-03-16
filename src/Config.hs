@@ -3,13 +3,14 @@ module Config where
 
 import XMonad
 import XMonad.Actions.CycleWS
-import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Hooks.DynamicLog
+
+import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
+import XMonad.Layout.IndependentScreens (countScreens, withScreens, onCurrentScreen, workspaces')
 import XMonad.Prompt (XPConfig(..), XPPosition(..))
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Util.Run (spawnPipe)
-import XMonad.Layout.IndependentScreens (countScreens, withScreens, onCurrentScreen, workspaces')
 
 import Data.List (isPrefixOf)
 import Data.Monoid (Endo)
@@ -77,7 +78,7 @@ myLogHook :: Handle -> X ()
 myLogHook statusBarHandle =
     dynamicLogWithPP xmobarPP
         { ppOutput = hPutStrLn statusBarHandle
-        , ppTitle = xmobarColor Theme.green "" . shorten 50   -- TODO: Theme Variables
+        , ppTitle = xmobarColor Theme.green "" . shorten 100
         }
 
 -- }}}
