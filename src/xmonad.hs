@@ -5,12 +5,14 @@ import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 import XMonad.Util.Run (spawnPipe)
+
+import Flow
 import System.IO (Handle, hPutStrLn)
 
 
 main :: IO ()
 main =
-    xmonad =<< myConfig
+    myConfig >>= xmonad
 
 
 -- | Super simple for now, will extend w/ AwesomeWM features I like.
@@ -19,18 +21,19 @@ main =
 myConfig = do
     -- TODO: Loop screen count, make multiple bars using `-x` option.
     statusBarHandle <- spawnPipe "xmobar"
-    return . docks $ def
-        { terminal =
+    def { terminal =
             "urxvt"
         , modMask =
             mod4Mask
         , borderWidth =
             1
         , layoutHook =
-            myLayoutHook $ layoutHook def
+            layoutHook def |> myLayoutHook
         , logHook =
             logHook def >> myLogHook statusBarHandle
         }
+        |> docks
+        |> return
 
 
 -- | Prevent windows from overlapping status bar.

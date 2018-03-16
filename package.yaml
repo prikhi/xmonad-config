@@ -10,6 +10,7 @@ description:         My xmonad Configuration
 
 dependencies:
   - base >= 4.7 && < 5
+  - flow
   - xmonad
   - xmonad-contrib
 
