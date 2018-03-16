@@ -45,8 +45,6 @@ Extra things I want it to do:
 * Quick note taking to a file   (Prompt.AppendFile)
 * Proper dynamic tagging + autotagging new windows
   (sometimes assigned tags get fucked in awesome)
-* Per monitor available or default layouts
-  (vertical stack portrait monitor by default)
 * Jump to window prompt w/ autocomplete
 * Workspace-specific positioning on init
     * Gimp: Put image in center & toolbars to left & right side, all floating.

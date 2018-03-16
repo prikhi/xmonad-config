@@ -11,6 +11,7 @@ import XMonad.Hooks.InsertPosition (insertPosition, Focus(Newer), Position(End))
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 import XMonad.Layout.IndependentScreens (countScreens, withScreens, onCurrentScreen, workspaces')
 import XMonad.Layout.NoBorders (noBorders, smartBorders)
+import XMonad.Layout.PerScreen (ifWider)
 import XMonad.Prompt (XPConfig(..), XPPosition(..))
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Util.Run (spawnPipe)
@@ -73,8 +74,11 @@ myConfig = do
 -- | Prevent tiled windows from overlapping status bar & remove borders
 -- from the fullscreen layout.
 myLayoutHook =
-    (avoidStruts . smartBorders) (tiled ||| Mirror tiled) ||| fullscreenBorderless
+    tiledLayouts ||| fullscreenBorderless
     where
+        tiledLayouts =
+            ifWider 1050 (tiled ||| Mirror tiled) (Mirror tiled ||| tiled)
+                |> avoidStruts . smartBorders
         fullscreenBorderless =
             noBorders Full
         tiled =
