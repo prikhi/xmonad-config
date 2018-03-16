@@ -18,7 +18,6 @@ While developing, you can run `stack build --file-watch`.
 Things Awesome does that I like:
 
 * Mouse Follows Focus
-* Independent Workspaces per Monitor
 * Directional move & shift, better switch/move to monitor bindings, cycle tags, etc.
 * Keyboard shortcut popup
 * On click tag selection

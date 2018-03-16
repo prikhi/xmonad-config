@@ -7,6 +7,7 @@ import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 import XMonad.Prompt (XPConfig(..), XPPosition(..))
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Util.Run (spawnPipe)
+import XMonad.Layout.IndependentScreens (countScreens, withScreens, onCurrentScreen, workspaces')
 
 import Data.Monoid (Endo)
 import Flow
@@ -27,6 +28,7 @@ import qualified Theme
 myConfig = do
     -- TODO: Loop screen count, make multiple bars using `-x` option.
     statusBarHandle <- spawnPipe "xmobar"
+    screenCount <- countScreens
     def { terminal =
             "urxvt"
         , modMask =
@@ -37,6 +39,8 @@ myConfig = do
             layoutHook def |> myLayoutHook
         , logHook =
             logHook def >> myLogHook statusBarHandle
+        , workspaces =
+            myWorkspaces screenCount
         , manageHook =
             myManageHook <+> manageHook def
         , keys =
@@ -68,6 +72,19 @@ myLogHook statusBarHandle =
         { ppOutput = hPutStrLn statusBarHandle
         , ppTitle = xmobarColor Theme.green "" . shorten 50   -- TODO: Theme Variables
         }
+
+-- }}}
+
+
+
+-- {{{ WORKSPACES
+
+myWorkspaces =
+    flip withScreens
+        [ "term"
+        , "www"
+        , "code"
+        ]
 
 -- }}}
 
@@ -186,9 +203,9 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
     ++
     -- Switch / Move to Workspace
     [ ( ( modm .|. mask, key )
-      , windows <| action index
+      , windows <| onCurrentScreen action index
       )
-    | (index, key) <- zip (workspaces c) [xK_1 .. xK_9]
+    | (index, key) <- zip (workspaces' c) [xK_1 .. xK_9]
     , (action, mask) <- [ ( W.greedyView, 0 ), ( W.shift, shiftMask ) ]
     ]
     ++
