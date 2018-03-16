@@ -10,7 +10,7 @@ import XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
 import XMonad.Hooks.InsertPosition (insertPosition, Focus(Newer), Position(End))
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 import XMonad.Layout.IndependentScreens (countScreens, withScreens, onCurrentScreen, workspaces')
-import XMonad.Layout.NoBorders (noBorders)
+import XMonad.Layout.NoBorders (noBorders, smartBorders)
 import XMonad.Prompt (XPConfig(..), XPPosition(..))
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Util.Run (spawnPipe)
@@ -59,6 +59,7 @@ myConfig = do
         , keys =
             myKeys
         }
+        |> fixMPVFullscreen
         |> ewmh
         |> docks
         |> (return :: a -> IO a)
@@ -72,7 +73,7 @@ myConfig = do
 -- | Prevent tiled windows from overlapping status bar & remove borders
 -- from the fullscreen layout.
 myLayoutHook =
-    avoidStruts (tiled ||| Mirror tiled) ||| fullscreenBorderless
+    (avoidStruts . smartBorders) (tiled ||| Mirror tiled) ||| fullscreenBorderless
     where
         fullscreenBorderless =
             noBorders Full
@@ -323,5 +324,29 @@ onScreen (S screenId) ws =
 moveCursorToFocus :: X ()
 moveCursorToFocus =
     updatePointer (0.5, 0.65) (0.25, 0.25)
+
+-- | Fix the fact that XMonad doesn't set _NET_WM_STATE_FULLSCREEN, which
+-- breaks mpv's `f` key fullscreen keybind.
+fixMPVFullscreen c = c
+    { startupHook = startupHook c <+> setSupportedWithFullscreen
+    }
+    where
+        setSupportedWithFullscreen :: X ()
+        setSupportedWithFullscreen = withDisplay $ \dpy -> do
+            r <- asks theRoot
+            a <- getAtom "_NET_SUPPORTED"
+            c <- getAtom "ATOM"
+            supp <- mapM getAtom ["_NET_WM_STATE_HIDDEN"
+                                ,"_NET_WM_STATE_FULLSCREEN"
+                                ,"_NET_NUMBER_OF_DESKTOPS"
+                                ,"_NET_CLIENT_LIST"
+                                ,"_NET_CLIENT_LIST_STACKING"
+                                ,"_NET_CURRENT_DESKTOP"
+                                ,"_NET_DESKTOP_NAMES"
+                                ,"_NET_ACTIVE_WINDOW"
+                                ,"_NET_WM_DESKTOP"
+                                ,"_NET_WM_STRUT"
+                                ]
+            io $ changeProperty32 dpy r a c propModeReplace (fmap fromIntegral supp)
 
 -- }}}
