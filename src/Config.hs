@@ -187,10 +187,10 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
 
     -- Move Through Screens
     , ( ( modm, xK_i )
-      , shiftPrevScreen >> prevScreen >> moveCursorToFocus
+      , shiftNextScreen >> nextScreen >> moveCursorToFocus
     )
     , ( ( modm, xK_o )
-      , shiftNextScreen >> nextScreen >> moveCursorToFocus
+      , shiftPrevScreen >> prevScreen >> moveCursorToFocus
     )
 
     -- Jump to Previous Workspace on Screen
