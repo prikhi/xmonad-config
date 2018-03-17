@@ -32,13 +32,13 @@ Things Awesome does that I like:
 * List all windows on current tag
 * Click window in taskbar to minimize
 * Minimize / Maximize windows
-* Per-Monitor status bars
 * Increase / Decrease Column Count
 * Jump to Urgent
 * ncmpcpp dropdown  (Util.Scratchpad)
 * Toggling workrave / compton
 * Autostart apps(runonce)
 * Keep on Top keybinding
+* Per-Client Opacity Settings, Ignore Transparency Classes, Unfocused Dim
 
 Extra things I want it to do:
 

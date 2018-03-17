@@ -9,6 +9,7 @@ import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
 import XMonad.Hooks.InsertPosition (insertPosition, Focus(Newer), Position(End))
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
+import XMonad.Hooks.DynamicBars (dynStatusBarStartup, dynStatusBarEventHook, multiPPFormat)
 import XMonad.Layout.IndependentScreens (countScreens, withScreens, onCurrentScreen, workspaces')
 import XMonad.Layout.NoBorders (noBorders, smartBorders)
 import XMonad.Layout.PerScreen (ifWider)
@@ -20,7 +21,7 @@ import Data.List (isPrefixOf)
 import Data.Monoid (Endo)
 import Flow
 import System.Exit (exitSuccess)
-import System.IO (Handle, hPutStrLn)
+import System.IO (Handle)
 
 import qualified Data.Map as Map
 import qualified XMonad.StackSet as W
@@ -35,7 +36,6 @@ import qualified Theme
 -- Starts a xmobar on the primary monitor & feeds it the status bar text.
 myConfig = do
     -- TODO: Loop screen count, make multiple bars using `-x` option.
-    statusBarHandle <- spawnPipe "xmobar"
     screenCount <- countScreens
     def { terminal =
             "urxvt"
@@ -49,14 +49,16 @@ myConfig = do
             Theme.orange
         , layoutHook =
             myLayoutHook
+        , startupHook =
+            dynStatusBarStartup dynamicStatusBar dynamicStatusBarCleanup
         , logHook =
-            myLogHook statusBarHandle
+            myLogHook
         , workspaces =
             myWorkspaces screenCount
         , manageHook =
             insertPosition End Newer <+> myManageHook
         , handleEventHook =
-            fullscreenEventHook <+> handleEventHook def
+            myEventHook <+> handleEventHook def
         , keys =
             myKeys
         }
@@ -96,13 +98,35 @@ myLayoutHook =
 
 -- {{{ LOGGING
 
--- | Output the workspace & window information to `xmobar`.
-myLogHook :: Handle -> X ()
-myLogHook statusBarHandle =
-    dynamicLogWithPP xmobarPP
-        { ppOutput = hPutStrLn statusBarHandle
-        , ppTitle = xmobarColor Theme.green "" . shorten 100
-        }
+-- | Log the Workspace & Window status for the xmobars.
+myLogHook :: X ()
+myLogHook =
+    xmobarLogHook
+
+-- | Render each Screen's Workspaces into their own xmobar, highlighting
+-- the current Screen's window title.
+xmobarLogHook :: X ()
+xmobarLogHook =
+    multiPPFormat onlyCurrentScreen Theme.focusedScreenPP Theme.unfocusedScreenPP
+    where
+        -- Only show workspaces on the bar's screen
+        onlyCurrentScreen :: PP -> X String
+        onlyCurrentScreen pp =
+            gets (windowset .> W.current .> W.screen)
+                >>= hideOffScreen pp .> dynamicLogString
+        -- Hide any hidden workspaces on other screens
+        hideOffScreen :: PP -> ScreenId -> PP
+        hideOffScreen pp (S screenId) =
+            pp { ppHidden = showIfPrefix screenId
+               , ppHiddenNoWindows = showIfPrefix screenId
+               }
+        -- Only show the workspace if it's prefix matches the current screen.
+        showIfPrefix :: Int -> WorkspaceId -> String
+        showIfPrefix screenId workspaceId =
+            if (show screenId ++ "_") `isPrefixOf` workspaceId then
+                workspaceId |> dropWhile (/= '_') |> drop 1 |> pad
+            else
+                ""
 
 -- }}}
 
@@ -137,6 +161,30 @@ floatingClasses =
 myManageHook :: Query (Endo WindowSet)
 myManageHook = composeAll <|
     map (\name -> className =? name --> doFloat) floatingClasses
+
+-- }}}
+
+
+
+-- {{{ EVENTS
+
+-- | Respond to Client Fullscreen Requests & Respawn Status Bars When
+-- Multi-Head Configuration Changes.
+myEventHook =
+    fullscreenEventHook
+    <+> dynStatusBarEventHook dynamicStatusBar dynamicStatusBarCleanup
+
+-- | Spawn an xmobar on the Given Screen.
+dynamicStatusBar :: ScreenId -> IO Handle
+dynamicStatusBar (S screenId) =
+    spawnPipe ("xmobar -x" ++ show screenId)
+
+-- | Do Nothing to Cleanup the Spawned Bars :/
+-- I was doing `pkill xmobar` but it would kill on restart as well...
+-- TODO: Fix this!
+dynamicStatusBarCleanup :: IO ()
+dynamicStatusBarCleanup =
+    return ()
 
 -- }}}
 
