@@ -6,6 +6,7 @@ import XMonad.Actions.CycleWS
 import XMonad.Hooks.DynamicLog
 
 import XMonad.Actions.UpdatePointer (updatePointer)
+import XMonad.Actions.Navigation2D (withNavigation2DConfig, windowGo, windowSwap, Direction2D(..))
 import XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
 import XMonad.Hooks.InsertPosition (insertPosition, Focus(Newer), Position(End))
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
@@ -62,6 +63,7 @@ myConfig = do
         , keys =
             myKeys
         }
+        |> withNavigation2DConfig def
         |> fixMPVFullscreen
         |> ewmh
         |> docks
@@ -250,6 +252,34 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
             |> toggleWS'
       )
 
+    -- Directional Window Navigation
+    , ( ( modm, xK_h )
+      , windowGo L False
+      )
+    , ( ( modm, xK_j )
+      , windowGo D False
+      )
+    , ( ( modm, xK_k )
+      , windowGo U False
+      )
+    , ( ( modm, xK_l )
+      , windowGo R False
+      )
+
+    -- Directional Window Swaps
+    , ( ( modm .|. shiftMask, xK_h )
+      , windowSwap L False
+      )
+    , ( ( modm .|. shiftMask, xK_j )
+      , windowSwap D False
+      )
+    , ( ( modm .|. shiftMask, xK_k )
+      , windowSwap U False
+      )
+    , ( ( modm .|. shiftMask, xK_l )
+      , windowSwap R False
+      )
+
 
     -- GENERAL
 
@@ -273,10 +303,10 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
       )
 
     -- Change Focus
-    , ( ( modm, xK_j )
+    , ( ( modm, xK_s )
       , windows W.focusDown
       )
-    , ( ( modm, xK_k )
+    , ( ( modm, xK_d )
       , windows W.focusUp
       )
     , ( ( modm, xK_y )

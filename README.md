@@ -17,7 +17,6 @@ While developing, you can run `stack build --file-watch`.
 
 Things Awesome does that I like:
 
-* Directional move & shift, etc.
 * Keyboard shortcut popup
 * On click tag selection
 * Multiple tag viewing, Clients on multiple tags
