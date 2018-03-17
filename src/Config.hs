@@ -201,7 +201,7 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
     -- EXTENSIONS
 
     -- Shell Prompt
-      ( ( modm, xK_x )
+      ( ( modm, xK_r )
       , shellPrompt promptConfig
       )
 
