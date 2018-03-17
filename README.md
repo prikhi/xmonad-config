@@ -17,7 +17,6 @@ While developing, you can run `stack build --file-watch`.
 
 Things Awesome does that I like:
 
-* Mouse Follows Focus
 * Directional move & shift, etc.
 * Keyboard shortcut popup
 * On click tag selection
@@ -43,6 +42,10 @@ Things Awesome does that I like:
 Extra things I want it to do:
 
 * Quick note taking to a file   (Prompt.AppendFile)
+* Generate xmobar config in the xmonad config, write it to file on start(in
+  cache folder), launch xmobar w/ generated file. Would let me config the rest
+  of the status bar in my theme. Could have a "short" xmobar config for narrow
+  screens.
 * Proper dynamic tagging + autotagging new windows
   (sometimes assigned tags get fucked in awesome)
 * Jump to window prompt w/ autocomplete
@@ -51,8 +54,17 @@ Extra things I want it to do:
     * Audio: non-mixer & jamin stacked on left, Claudia on right
 * Project-specific workspaces that open terminals and run commands
     * SESE Website: Open main term w/ server/client vim & file tabs, another
-      term w/ files & server repl tabs, & third term with build script
+      term w/ files & server repl tabs, & third term with build script, move
+      palemoon & chromium to appropriate screens.
 
+
+Links to do some of that stuff:
+
+* https://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Hooks-Minimize.html
+* https://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Layout-Maximize.html
+* https://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Layout-Minimize.html
+* https://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Layout-MultiColumns.html
+* https://stackoverflow.com/questions/22838932/how-can-xmonads-dynamiclog-format-the-titles-of-unfocused-windows
 
 ## License
 
