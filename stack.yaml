@@ -36,13 +36,22 @@ resolver: lts-11.0
 # non-dependency (i.e. a user package), and its test suites and benchmarks
 # will not be run. This is useful for tweaking upstream packages.
 packages:
-- .
+    - .
+    - xmobar
+    - xmonad
+    - xmonad-contrib
 # Dependency packages to be pulled from upstream that are not in the resolver
 # (e.g., acme-missiles-0.3)
 # extra-deps: []
 
 # Override default flag values for local packages and extra-deps
-# flags: {}
+flags:
+    xmobar:
+        with_mpd: true
+        with_threaded: true
+        with_rtsopts: true
+        with_xft: true
+        with_xpm: true
 
 # Extra package databases containing global packages
 # extra-package-dbs: []

@@ -1,3 +1,9 @@
 [submodule "xmobar"]
 	path = xmobar
 	url = git@github.com:prikhi/xmobar.git
+[submodule "xmonad-contrib"]
+	path = xmonad-contrib
+	url = https://github.com/xmonad/xmonad-contrib
+[submodule "xmonad"]
+	path = xmonad
+	url = https://github.com/xmonad/xmonad
