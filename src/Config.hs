@@ -10,24 +10,23 @@ import XMonad.Actions.Navigation2D (withNavigation2DConfig, windowGo, windowSwap
 import XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
 import XMonad.Hooks.InsertPosition (insertPosition, Focus(Newer), Position(End))
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
-import XMonad.Hooks.DynamicBars (dynStatusBarStartup, dynStatusBarEventHook, multiPPFormat)
+import XMonad.Hooks.DynamicBars (multiPPFormat)
 import XMonad.Layout.IndependentScreens (countScreens, withScreens, onCurrentScreen, workspaces')
 import XMonad.Layout.NoBorders (noBorders, smartBorders)
 import XMonad.Layout.PerScreen (ifWider)
 import XMonad.Prompt (XPConfig(..), XPPosition(..))
 import XMonad.Prompt.Shell (shellPrompt)
-import XMonad.Util.Run (spawnPipe)
 
 import Data.List (isPrefixOf)
-import Data.Monoid (Endo)
+import Data.Monoid (All, Endo)
 import Flow
 import System.Exit (exitSuccess)
-import System.IO (Handle)
 
 import qualified Data.Map as Map
 import qualified XMonad.StackSet as W
 
 import qualified Theme
+import qualified StatusBar
 
 
 -- {{{ CONFIGURATION
@@ -36,7 +35,7 @@ import qualified Theme
 --
 -- Starts a xmobar on the primary monitor & feeds it the status bar text.
 myConfig = do
-    -- TODO: Loop screen count, make multiple bars using `-x` option.
+    spawn "pkill trayer; trayer --edge top --align right --width 80 --widthtype pixel --expand false --monitor 1 --height 17 --tint 0x1B1D1E --alpha 0 --transparent true"
     screenCount <- countScreens
     def { terminal =
             "urxvt"
@@ -51,7 +50,7 @@ myConfig = do
         , layoutHook =
             myLayoutHook
         , startupHook =
-            dynStatusBarStartup dynamicStatusBar dynamicStatusBarCleanup
+            StatusBar.startupHook
         , logHook =
             myLogHook
         , workspaces =
@@ -172,21 +171,9 @@ myManageHook = composeAll <|
 
 -- | Respond to Client Fullscreen Requests & Respawn Status Bars When
 -- Multi-Head Configuration Changes.
+myEventHook :: Event -> X All
 myEventHook =
-    fullscreenEventHook
-    <+> dynStatusBarEventHook dynamicStatusBar dynamicStatusBarCleanup
-
--- | Spawn an xmobar on the Given Screen.
-dynamicStatusBar :: ScreenId -> IO Handle
-dynamicStatusBar (S screenId) =
-    spawnPipe ("xmobar -x" ++ show screenId)
-
--- | Do Nothing to Cleanup the Spawned Bars :/
--- I was doing `pkill xmobar` but it would kill on restart as well...
--- TODO: Fix this!
-dynamicStatusBarCleanup :: IO ()
-dynamicStatusBarCleanup =
-    return ()
+    fullscreenEventHook <+> StatusBar.eventHook
 
 -- }}}
 
@@ -409,6 +396,7 @@ moveCursorToFocus =
 
 -- | Fix the fact that XMonad doesn't set _NET_WM_STATE_FULLSCREEN, which
 -- breaks mpv's `f` key fullscreen keybind.
+fixMPVFullscreen :: XConfig l -> XConfig l
 fixMPVFullscreen c = c
     { startupHook = startupHook c <+> setSupportedWithFullscreen
     }

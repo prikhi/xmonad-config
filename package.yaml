@@ -13,14 +13,15 @@ dependencies:
   - base >= 4.7 && < 5
   - xmonad
 
-
 library:
   source-dirs: src
   dependencies:
     - containers
     - flow
+    - unix
+    - xmobar
     - xmonad-contrib
-
+    - X11
 
 executable:
   main: xmonad.hs

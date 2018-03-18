@@ -87,6 +87,14 @@ promptBorderColor =
 
 -- {{{ XMOBAR
 
+statusBarForeground :: String
+statusBarForeground =
+    magenta
+
+statusBarBackground :: String
+statusBarBackground =
+    background
+
 focusedTitle :: String -> String
 focusedTitle =
     xmobarColor black orange
@@ -103,9 +111,21 @@ urgentWorkspace :: String -> String
 urgentWorkspace =
     xmobarColor black cyan
 
-statusSeparator :: String -> String
+statusSeparator :: String
 statusSeparator =
+    xmobarColor green background "::"
+
+networkUpload :: String -> String
+networkUpload =
     xmobarColor green background
+
+networkDownload :: String -> String
+networkDownload =
+    xmobarColor cyan background
+
+date :: String -> String
+date =
+    xmobarColor orange background
 
 -- | An xmobar Pretty Printer that Displays Every Window on a Workspace.
 --
@@ -123,7 +143,7 @@ focusedScreenPP = xmobarPP
     , ppUrgent =
         urgentWorkspace . pad . dropPrefix
     , ppSep =
-        statusSeparator <| pad "::"
+        pad statusSeparator
     , ppWsSep =
         ""
     , ppExtras =

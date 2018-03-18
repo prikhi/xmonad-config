@@ -23,7 +23,7 @@ Things Awesome does that I like:
 * Keybindings to/from floating
 * Floating layout
 * Shutdown commands
-* Notifications + Shortcut to Clear
+* Notifications + Shortcut to Clear (see dunst)
 * Layout icons
 * Active / Inactive Tag Colors, "Has Windows" Icons
 * MPD, CPU, Net, Systray, Clock Widget
@@ -47,6 +47,10 @@ Extra things I want it to do:
   screens.
 * Proper dynamic tagging + autotagging new windows
   (sometimes assigned tags get fucked in awesome)
+    * Need to write custom XMonad.Prompt that will use DynamicWorkspaces
+      extension to add new workspaces w/ names as expected by
+      IndependentScreens extension. Not sure how to make dynamic keybindings to
+      switch to newly created workspaces.
 * Jump to window prompt w/ autocomplete
 * Workspace-specific positioning on init
     * Gimp: Put image in center & toolbars to left & right side, all floating.
@@ -64,6 +68,7 @@ Links to do some of that stuff:
 * https://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Layout-Minimize.html
 * https://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Layout-MultiColumns.html
 * https://stackoverflow.com/questions/22838932/how-can-xmonads-dynamiclog-format-the-titles-of-unfocused-windows
+* https://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Util-ExtensibleState.html
 
 ## License
 

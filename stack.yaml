@@ -40,6 +40,7 @@ packages:
     - xmobar
     - xmonad
     - xmonad-contrib
+
 # Dependency packages to be pulled from upstream that are not in the resolver
 # (e.g., acme-missiles-0.3)
 # extra-deps: []
@@ -47,11 +48,9 @@ packages:
 # Override default flag values for local packages and extra-deps
 flags:
     xmobar:
-        with_mpd: true
+        with_weather: false
         with_threaded: true
-        with_rtsopts: true
         with_xft: true
-        with_xpm: true
 
 # Extra package databases containing global packages
 # extra-package-dbs: []
