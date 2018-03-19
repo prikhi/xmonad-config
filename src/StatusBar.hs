@@ -47,7 +47,6 @@ dynamic (S screenId) =
                     long
     in
         runXmobar config screenId
-        -- spawnPipe $ "xmobar -x" ++ show screenId
 
 -- | Kill all Status Bar Processes.
 dynamicCleanup :: X ()
