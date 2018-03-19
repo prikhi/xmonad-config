@@ -221,11 +221,40 @@ type KeyMap = Map.Map (KeyMask, KeySym) (X ())
 myKeys :: XConfig l -> KeyMap
 myKeys c@XConfig { modMask = modm } = Map.fromList $
     [
+    -- MPD
+
+    -- Play / Pause
+      ( ( modm .|. shiftMask, xK_p )
+      , spawn "mpc toggle"
+      )
+    -- Next / Previous Track
+    , ( ( modm .|. shiftMask, xK_comma )
+      , spawn "mpc prev"
+      )
+    , ( ( modm .|. shiftMask, xK_period )
+      , spawn "mpc next"
+      )
+
+
+    -- MISC UTILITIES
+
+    -- Toggle Workrave On & Off
+    , ( ( modm, xK_F11 )
+      , spawn "pkill workrave || workrave"
+      )
+    -- Toggle Compton On & Off
+    , ( ( modm, xK_F12 )
+      , spawn "pkill compton || compton -b"
+      )
+
+
 
     -- EXTENSIONS
 
+
+
     -- Shell Prompt
-      ( ( modm, xK_r )
+    , ( ( modm, xK_r )
       , shellPrompt promptConfig
       )
 
