@@ -372,7 +372,9 @@ recompileAndRestart = do
 
 promptConfig :: XPConfig
 promptConfig = def
-    { promptBorderWidth =
+    { maxComplRows =
+        Just 10
+    , promptBorderWidth =
         0
     , position =
         Top
