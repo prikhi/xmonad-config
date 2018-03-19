@@ -20,7 +20,8 @@ import XMonad.Prompt.Shell (shellPrompt)
 import Data.List (isPrefixOf)
 import Data.Monoid (All, Endo)
 import Flow
-import System.Exit (exitSuccess)
+import System.Exit (ExitCode(..), exitSuccess)
+import System.Process (readProcessWithExitCode)
 
 import qualified Data.Map as Map
 import qualified XMonad.StackSet as W
@@ -334,10 +335,10 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
 
     -- Quit / Restart
     , ( ( modm .|. shiftMask, xK_q )
-      , io <| exitSuccess
+      , StatusBar.terminateProcesses >> io exitSuccess
       )
     , ( ( modm, xK_q )
-      , spawn "xmonad --recompile && xmonad --restart"
+      , recompileAndRestart
       )
 
     ]
@@ -350,6 +351,18 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
     , (action, mask) <- [ ( W.greedyView, 0 ), ( W.shift, shiftMask ) ]
     ]
 
+-- | Recompile & Reload the xmonad Configuration.
+--
+-- Kills the StatusBar threads if compilation is successful.
+recompileAndRestart :: X ()
+recompileAndRestart = do
+    (recompileStatus, _, _) <- io
+        $ readProcessWithExitCode "xmonad" ["--recompile"] ""
+    case recompileStatus of
+        ExitSuccess ->
+            StatusBar.terminateProcesses >> spawn "xmonad --restart"
+        ExitFailure _ ->
+            return ()
 
 -- }}}
 

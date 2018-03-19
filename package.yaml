@@ -18,6 +18,7 @@ library:
   dependencies:
     - containers
     - flow
+    - process
     - unix
     - xmobar
     - xmonad-contrib
