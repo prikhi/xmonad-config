@@ -141,6 +141,12 @@ myWorkspaces =
         [ "term"
         , "www"
         , "code"
+        , "chat"
+        , "graphics"
+        , "media"
+        , "sese"
+        , "fic"
+        , "misc"
         ]
 
 -- }}}
