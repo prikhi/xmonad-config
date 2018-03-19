@@ -344,7 +344,9 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
       , StatusBar.terminateProcesses >> io exitSuccess
       )
     , ( ( modm, xK_q )
-      , recompileAndRestart
+      , spawn "xmonad --recompile"
+          >> StatusBar.terminateProcesses
+          >> spawn "xmonad --restart"
       )
 
     ]
@@ -356,19 +358,6 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
     | (index, key) <- zip (workspaces' c) [xK_1 .. xK_9]
     , (action, mask) <- [ ( W.greedyView, 0 ), ( W.shift, shiftMask ) ]
     ]
-
--- | Recompile & Reload the xmonad Configuration.
---
--- Kills the StatusBar threads if compilation is successful.
-recompileAndRestart :: X ()
-recompileAndRestart = do
-    (recompileStatus, _, _) <- io
-        $ readProcessWithExitCode "xmonad" ["--recompile"] ""
-    case recompileStatus of
-        ExitSuccess ->
-            StatusBar.terminateProcesses >> spawn "xmonad --restart"
-        ExitFailure _ ->
-            return ()
 
 -- }}}
 
