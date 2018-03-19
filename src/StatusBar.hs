@@ -83,9 +83,12 @@ terminateProcesses =
 runXmobar :: Config -> Int -> X Handle
 runXmobar c screenId = do
     cacheDir <- getXMonadCacheDir
+    iconDir <- Theme.getIconDirectory
     let pipePath = cacheDir ++ "xmobar-" ++ show screenId ++ ".fifo"
     (handle, processId) <- liftIO $ XmobarStub.runWithPipe pipePath c
-        { position = OnScreen screenId $ position c }
+        { position = OnScreen screenId $ position c
+        , iconRoot = iconDir
+        }
     trackProcess processId
     return handle
 
@@ -129,6 +132,7 @@ long = xmobarConfig
         , "}{"
         , "%enp3s0%"
         , Theme.statusSeparator
+        , Theme.icon Theme.CPU
         , "%cpu%"
         , Theme.statusSeparator
         , Theme.date "%date%"

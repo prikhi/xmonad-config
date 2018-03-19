@@ -1,6 +1,6 @@
 module Theme where
 
-import XMonad (X, Window, withWindowSet)
+import XMonad (X, Window, withWindowSet, getXMonadDir)
 import XMonad.Hooks.DynamicLog (PP(..), xmobarColor, pad, xmobarPP)
 import XMonad.Util.NamedWindows (getName)
 
@@ -87,6 +87,8 @@ promptBorderColor =
 
 -- {{{ XMOBAR
 
+-- Colors
+
 statusBarForeground :: String
 statusBarForeground =
     magenta
@@ -113,7 +115,7 @@ urgentWorkspace =
 
 statusSeparator :: String
 statusSeparator =
-    xmobarColor green background "::"
+    icon Separator
 
 networkUpload :: String -> String
 networkUpload =
@@ -126,6 +128,30 @@ networkDownload =
 date :: String -> String
 date =
     xmobarColor orange background
+
+-- Icons
+
+getIconDirectory :: X String
+getIconDirectory =
+    (++ "icons") <$> getXMonadDir
+
+data Icon
+    = Separator
+    | CPU
+
+icon :: Icon -> String
+icon i =
+    let
+        name = case i of
+            Separator ->
+                "sep"
+            CPU ->
+                "cpu"
+
+    in
+        "<icon=" ++ name ++ ".xpm/>"
+
+-- Pretty Printers
 
 -- | An xmobar Pretty Printer that Displays Every Window on a Workspace.
 --

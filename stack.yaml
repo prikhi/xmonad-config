@@ -51,6 +51,7 @@ flags:
         with_weather: false
         with_threaded: true
         with_xft: true
+        with_xpm: true
 
 # Extra package databases containing global packages
 # extra-package-dbs: []
