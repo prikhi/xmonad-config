@@ -25,7 +25,7 @@ startupHook =
     dynStatusBarStartup dynamic dynamicCleanup
 
 
--- | Kill the Status Bars on Shutdown & Restarts
+-- | Restart the Status Bars on Monitor / Screen Changes
 eventHook :: Event -> X All
 eventHook =
     dynStatusBarEventHook dynamic dynamicCleanup

@@ -7,8 +7,8 @@ lua.
 ## Usage
 
 * Clone this repo to somewhere like `~/.config/xmonad/`.
-* In `~/.xprofile` set `XMONAD_CONFIG_DIR` to this folder.
-* Log out & in to reload `.xprofile` & run `xmonad --recompile`.
+* In `~/.profile` set `XMONAD_CONFIG_DIR` to this folder.
+* Log out & in to reload `.profile` & run `xmonad --recompile && xmonad --restart`.
 
 While developing, you can run `stack build --file-watch`.
 
@@ -22,6 +22,7 @@ Things Awesome does that I like:
 * Multiple tag viewing, Clients on multiple tags
 * Keybindings to/from floating
 * Floating layout
+* Autostart apps (SpawnOnce)
 * Shutdown commands
 * Notifications + Shortcut to Clear (see dunst)
 * Layout icons
@@ -34,9 +35,9 @@ Things Awesome does that I like:
 * Jump to Urgent
 * ncmpcpp dropdown  (Util.Scratchpad)
 * Toggling workrave / compton
-* Autostart apps(runonce)
 * Keep on Top keybinding
 * Per-Client Opacity Settings, Ignore Transparency Classes, Unfocused Dim
+* Mod-RightMouseBtn to resize master width
 
 Extra things I want it to do:
 
