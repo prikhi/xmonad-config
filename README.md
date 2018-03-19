@@ -62,12 +62,15 @@ Extra things I want it to do:
 
 Links to do some of that stuff:
 
+* https://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Actions-CopyWindow.html
 * https://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Hooks-Minimize.html
 * https://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Layout-Maximize.html
 * https://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Layout-Minimize.html
 * https://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Layout-MultiColumns.html
-* https://stackoverflow.com/questions/22838932/how-can-xmonads-dynamiclog-format-the-titles-of-unfocused-windows
 * https://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Util-ExtensibleState.html
+* https://www.stackage.org/haddock/lts-11.1/xmonad-contrib-0.13/XMonad-Util-Paste.html
+* https://www.stackage.org/haddock/lts-11.1/xmonad-contrib-0.13/XMonad-Util-Paste.html
+
 
 ## License
 
