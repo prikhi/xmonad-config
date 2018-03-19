@@ -3,10 +3,12 @@
 I really like awesome but would love to write configs in haskell instead of
 lua.
 
+You should also install:
+
+* `trayer` - system tray
+* `mpc` - control MPD
 
 ## Usage
-
-You need `trayer` installed for the system tray to show up.
 
 * Clone this repo to somewhere like `~/.config/xmonad/`.
 * In `~/.profile` set `XMONAD_CONFIG_DIR` to this folder.
@@ -27,15 +29,13 @@ Things Awesome does that I like:
 * Shutdown commands
 * Notifications + Shortcut to Clear (see dunst)
 * Layout icons
-* Active / Inactive Tag Colors, "Has Windows" Icons
-* MPD, CPU, Net, Systray, Clock Widget
-* List all windows on current tag
-* Click window in taskbar to minimize
+* "Has Windows" Icons next to tag names
+* MPD Widget
+* Click window in taskbar to minimize/restore
 * Minimize / Maximize windows
 * Increase / Decrease Column Count
 * Jump to Urgent
 * ncmpcpp dropdown  (Util.Scratchpad)
-* Toggling workrave / compton
 * Keep on Top keybinding
 * Per-Client Opacity Settings, Ignore Transparency Classes, Unfocused Dim
 * Mod-RightMouseBtn to resize master width
@@ -43,6 +43,7 @@ Things Awesome does that I like:
 Extra things I want it to do:
 
 * Quick note taking to a file   (Prompt.AppendFile)
+* Quick access to calculator
 * Proper dynamic tagging + autotagging new windows
   (sometimes assigned tags get fucked in awesome)
     * Need to write custom XMonad.Prompt that will use DynamicWorkspaces
