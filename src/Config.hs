@@ -98,8 +98,9 @@ myLayoutHook =
 
 
 
--- {{{ START UP
+-- {{{ START UP / SHUTDOWN
 
+myStartupHook :: X ()
 myStartupHook =
     let
         startupCommands =
@@ -121,6 +122,11 @@ myStartupHook =
     in
         StatusBar.startupHook
             >> mapM_ spawnOnce startupCommands
+
+myShutdownHook :: X ()
+myShutdownHook =
+    spawn "pkill keepassx && rm -f ~/.passwords/pavans_passwords.kdb.lock"
+        >> StatusBar.stopHook
 
 -- }}}
 
@@ -398,7 +404,7 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
 
     -- Quit / Restart
     , ( ( modm .|. shiftMask, xK_q )
-      , StatusBar.stopHook >> io exitSuccess
+      , myShutdownHook >> io exitSuccess
       )
     , ( ( modm, xK_q )
       , spawn "xmonad --recompile"
