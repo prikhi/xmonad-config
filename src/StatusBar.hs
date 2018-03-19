@@ -2,13 +2,14 @@
 {-# LANGUAGE OverloadedStrings #-}
 module StatusBar where
 
-import XMonad (X, ExtensionClass(..), Typeable, Event, ScreenId(S), getXMonadCacheDir, liftIO)
+import XMonad (X, ExtensionClass(..), Typeable, Event, ScreenId(S), getXMonadCacheDir, liftIO, spawn)
 import XMonad.Hooks.DynamicBars (dynStatusBarStartup, dynStatusBarEventHook)
 import Xmobar.Config (Config(..), XPosition(OnScreen, Top, TopP), defaultConfig)
 import Xmobar.Plugins.Date (Date(Date))
 import Xmobar.Plugins.Monitors (Monitors(Network, Cpu))
 import Xmobar.Runnable (Runnable(Run))
 
+import Control.Monad (when)
 import Data.Monoid (All)
 import System.IO (Handle)
 import System.Posix (ProcessID, signalProcess, sigTERM)
@@ -19,16 +20,23 @@ import qualified Theme
 import qualified XmobarStub
 
 
--- | Start the Status Bars.
+-- Hooks
+
+-- | Start the Status Bars & System Tray.
 startupHook :: X ()
 startupHook =
     dynStatusBarStartup dynamic dynamicCleanup
 
 
--- | Restart the Status Bars on Monitor / Screen Changes
+-- | Restart the Status Bars & System Tray on Monitor / Screen Changes
 eventHook :: Event -> X All
 eventHook =
     dynStatusBarEventHook dynamic dynamicCleanup
+
+-- | Stop the Status Bar & System Tray Processes.
+stopHook :: X ()
+stopHook =
+    dynamicCleanup
 
 
 -- | Start the Status Bar for the Screen.
@@ -46,13 +54,17 @@ dynamic (S screenId) =
                 _ ->
                     long
     in
-        runXmobar config screenId
+        when (screenId == 0) startSystemTray
+            >> runXmobar config screenId
 
--- | Kill all Status Bar Processes.
+-- | Kill all Status Bar & System Tray Processes.
 dynamicCleanup :: X ()
 dynamicCleanup =
     terminateProcesses
+        >> stopSystemTray
 
+
+-- Storage
 
 -- | Persistent Storage for the list of Status Bar ProcessIDs.
 newtype StatusBarStorage
@@ -74,6 +86,40 @@ terminateProcesses =
         >>= liftIO . mapM_ (signalProcess sigTERM)
         >> XS.put (StatusBarStorage [])
 
+
+-- System Tray
+
+-- | The Desired Width of System Tray in Pixels.
+systemTrayWidth :: Int
+systemTrayWidth =
+    80
+
+-- | Start the System Tray Process.
+startSystemTray :: X ()
+startSystemTray =
+    let
+        args =
+            [ "--edge", "top"
+            , "--align", "right"
+            , "--width", show systemTrayWidth
+            , "--widthtype", "pixels"
+            , "--expand", "false"
+            , "--monitor", "primary"
+            , "--height", "17"
+            , "--tint", "0x" ++ drop 1 Theme.background
+            , "--alpha", "0"
+            , "--transparent", "true"
+            ]
+    in
+        spawn $ "sleep 0.1; trayer " ++ unwords args
+
+-- | Stop the System Tray Process.
+stopSystemTray :: X ()
+stopSystemTray =
+    spawn "pkill trayer"
+
+
+-- Xmobar
 
 -- | Run xmobar on a Specific Screen & Return an Output Handle to it's
 -- PipeReader.
@@ -141,11 +187,11 @@ long = xmobarConfig
     }
 
 
--- | A Long Status Bar with 80px of Space for the System Tray.
+-- | A Long Status Bar with Space for the System Tray.
 withTray :: Config
 withTray = long
     { position =
-        TopP 0 80
+        TopP 0 systemTrayWidth
     , template =
         template long ++ " " ++ Theme.statusSeparator
     }

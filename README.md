@@ -6,6 +6,8 @@ lua.
 
 ## Usage
 
+You need `trayer` installed for the system tray to show up.
+
 * Clone this repo to somewhere like `~/.config/xmonad/`.
 * In `~/.profile` set `XMONAD_CONFIG_DIR` to this folder.
 * Log out & in to reload `.profile` & run `xmonad --recompile && xmonad --restart`.
@@ -42,10 +44,6 @@ Things Awesome does that I like:
 Extra things I want it to do:
 
 * Quick note taking to a file   (Prompt.AppendFile)
-* Generate xmobar config in the xmonad config, write it to file on start(in
-  cache folder), launch xmobar w/ generated file. Would let me config the rest
-  of the status bar in my theme. Could have a "short" xmobar config for narrow
-  screens.
 * Proper dynamic tagging + autotagging new windows
   (sometimes assigned tags get fucked in awesome)
     * Need to write custom XMonad.Prompt that will use DynamicWorkspaces

@@ -36,7 +36,6 @@ import qualified StatusBar
 --
 -- Starts a xmobar on the primary monitor & feeds it the status bar text.
 myConfig = do
-    spawn "pkill trayer; trayer --edge top --align right --width 80 --widthtype pixel --expand false --monitor 1 --height 17 --tint 0x1B1D1E --alpha 0 --transparent true"
     screenCount <- countScreens
     def { terminal =
             "urxvt"
@@ -341,11 +340,11 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
 
     -- Quit / Restart
     , ( ( modm .|. shiftMask, xK_q )
-      , StatusBar.terminateProcesses >> io exitSuccess
+      , StatusBar.stopHook >> io exitSuccess
       )
     , ( ( modm, xK_q )
       , spawn "xmonad --recompile"
-          >> StatusBar.terminateProcesses
+          >> StatusBar.stopHook
           >> spawn "xmonad --restart"
       )
 
