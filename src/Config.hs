@@ -16,6 +16,7 @@ import XMonad.Layout.NoBorders (noBorders, smartBorders)
 import XMonad.Layout.PerScreen (ifWider)
 import XMonad.Prompt (XPConfig(..), XPPosition(..))
 import XMonad.Prompt.Shell (shellPrompt)
+import XMonad.Util.SpawnOnce (spawnOnce)
 
 import Data.List (isPrefixOf)
 import Data.Monoid (All, Endo)
@@ -50,7 +51,7 @@ myConfig = do
         , layoutHook =
             myLayoutHook
         , startupHook =
-            StatusBar.startupHook
+            myStartupHook
         , logHook =
             myLogHook
         , workspaces =
@@ -92,6 +93,34 @@ myLayoutHook =
             3 / 100
         mwfact =
             2 / 3
+
+-- }}}
+
+
+
+-- {{{ START UP
+
+myStartupHook =
+    let
+        startupCommands =
+            [ "compton -b"
+            , "keepassx -min -lock"
+            , "mount ~/.passwords/"
+            , "mumble"
+            , "newmoon"
+            , "palemoon"
+            , "pasystray"
+            , "pidgin"
+            , "systemctl --user start redshift"
+            , "udevil clean"
+            , "unclutter -idle 2 -grab"
+            , "urxvtd -f -o -q"
+            , "workrave"
+            , "~/.bin/mailcheck.sh"
+            ]
+    in
+        StatusBar.startupHook
+            >> mapM_ spawnOnce startupCommands
 
 -- }}}
 

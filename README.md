@@ -24,7 +24,6 @@ Things Awesome does that I like:
 * Multiple tag viewing, Clients on multiple tags
 * Keybindings to/from floating
 * Floating layout
-* Autostart apps (SpawnOnce)
 * Shutdown commands
 * Notifications + Shortcut to Clear (see dunst)
 * Layout icons
