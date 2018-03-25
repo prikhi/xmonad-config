@@ -27,12 +27,12 @@ Things Awesome does that I like:
 * Keybindings to/from floating
 * Floating layout
 * Shutdown commands
-* Notifications + Shortcut to Clear (see dunst)
+* Configure & launch hs-notifications from xmonad
 * Layout icons
 * "Has Windows" Icons next to tag names
 * MPD Widget
 * Click window in taskbar to minimize/restore
-* Minimize / Maximize windows
+* Minimize windows
 * Increase / Decrease Column Count
 * Jump to Urgent
 * ncmpcpp dropdown  (Util.Scratchpad)
@@ -44,6 +44,7 @@ Extra things I want it to do:
 
 * Quick note taking to a file   (Prompt.AppendFile)
 * Quick access to calculator
+* Native systray & notifications
 * Proper dynamic tagging + autotagging new windows
   (sometimes assigned tags get fucked in awesome)
     * Need to write custom XMonad.Prompt that will use DynamicWorkspaces
@@ -68,6 +69,7 @@ Links to do some of that stuff:
 * https://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Layout-Minimize.html
 * https://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Layout-MultiColumns.html
 * https://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Util-ExtensibleState.html
+* https://www.stackage.org/haddock/lts-11.1/xmonad-contrib-0.13/XMonad-Actions-SpawnOn.html
 * https://www.stackage.org/haddock/lts-11.1/xmonad-contrib-0.13/XMonad-Util-Paste.html
 * https://www.stackage.org/haddock/lts-11.1/xmonad-contrib-0.13/XMonad-Util-Paste.html
 

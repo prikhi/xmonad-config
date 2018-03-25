@@ -13,6 +13,7 @@ import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 import XMonad.Hooks.DynamicBars (multiPPFormat)
 import XMonad.Layout.IndependentScreens (countScreens, withScreens, onCurrentScreen, workspaces')
 import XMonad.Layout.NoBorders (noBorders, smartBorders)
+import XMonad.Layout.Maximize (maximizeWithPadding, maximizeRestore)
 import XMonad.Layout.PerScreen (ifWider)
 import XMonad.Prompt (XPConfig(..), XPPosition(..))
 import XMonad.Prompt.Shell (shellPrompt)
@@ -82,7 +83,7 @@ myLayoutHook =
     where
         tiledLayouts =
             ifWider 1050 (tiled ||| Mirror tiled) (Mirror tiled ||| tiled)
-                |> avoidStruts . smartBorders
+                |> avoidStruts . maximizeWithPadding 0 . smartBorders
         fullscreenBorderless =
             noBorders Full
         tiled =
@@ -262,6 +263,11 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
     -- Shell Prompt
     , ( ( modm, xK_r )
       , shellPrompt promptConfig
+      )
+
+    -- Maximize
+    , ( ( modm, xK_m )
+      , withFocused (sendMessage . maximizeRestore)
       )
 
     -- Cycle Through Workspaces
