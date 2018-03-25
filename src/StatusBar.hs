@@ -6,7 +6,7 @@ import XMonad (X, ExtensionClass(..), Typeable, Event, ScreenId(S), getXMonadCac
 import XMonad.Hooks.DynamicBars (dynStatusBarStartup, dynStatusBarEventHook)
 import Xmobar.Config (Config(..), XPosition(OnScreen, Top, TopP), defaultConfig)
 import Xmobar.Plugins.Date (Date(Date))
-import Xmobar.Plugins.Monitors (Monitors(Network, Cpu))
+import Xmobar.Plugins.Monitors (Monitors(Network, Cpu, Weather))
 import Xmobar.Runnable (Runnable(Run))
 
 import Control.Monad (when)
@@ -162,6 +162,11 @@ long = xmobarConfig
             , Theme.networkUpload "<tx> KB ^" ++ Theme.networkDownload "v <rx> KB"
             ]
             25
+        , Run $ Weather "K7W4"
+            [ "-t"
+            , "<tempF>°"
+            ]
+            3000
         , Run $ Cpu
             [ "-t"
             , "<total>%"
@@ -180,6 +185,8 @@ long = xmobarConfig
         , Theme.statusSeparator
         , Theme.icon Theme.CPU
         , "%cpu%"
+        , Theme.statusSeparator
+        , Theme.weather "%K7W4%"
         , Theme.statusSeparator
         , Theme.date "%date%"
         , ""

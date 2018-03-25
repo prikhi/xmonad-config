@@ -48,7 +48,6 @@ packages:
 # Override default flag values for local packages and extra-deps
 flags:
     xmobar:
-        with_weather: false
         with_threaded: true
         with_xft: true
         with_xpm: true
