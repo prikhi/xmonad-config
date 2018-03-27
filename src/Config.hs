@@ -11,6 +11,7 @@ import XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
 import XMonad.Hooks.InsertPosition (insertPosition, Focus(Newer), Position(End))
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 import XMonad.Hooks.DynamicBars (multiPPFormat)
+import XMonad.Hooks.FadeInactive (fadeOutLogHook, isUnfocused)
 import XMonad.Layout.IndependentScreens (countScreens, withScreens, onCurrentScreen, workspaces')
 import XMonad.Layout.NoBorders (noBorders, smartBorders)
 import XMonad.Layout.Maximize (maximizeWithPadding, maximizeRestore)
@@ -139,6 +140,39 @@ myShutdownHook =
 myLogHook :: X ()
 myLogHook =
     xmobarLogHook
+    <+> transparencyLogHook
+
+
+-- | Fade Out All Unfocused Windows, With Exceptions For Programs in
+-- `ignoreTransparencyClasses`.
+transparencyLogHook :: X ()
+transparencyLogHook =
+    fadeOutLogHook fade
+    where
+        inactiveTransparency :: Rational
+        inactiveTransparency =
+            0.94
+        activeTransparency :: Rational
+        activeTransparency =
+            0.98
+        fade :: Query Rational
+        fade = do
+            unfocused <- isUnfocused
+            ignored <- isIgnored
+            return $
+                if ignored then
+                    1
+                else if unfocused then
+                    inactiveTransparency
+                else
+                    activeTransparency
+        isIgnored :: Query Bool
+        isIgnored =
+            foldl (<||>) (return False) opaqueChecks
+        opaqueChecks :: [Query Bool]
+        opaqueChecks =
+            map (\name -> className =? name) ignoreTransparencyClasses
+
 
 -- | Render each Screen's Workspaces into their own xmobar, highlighting
 -- the current Screen's window title.
@@ -192,13 +226,62 @@ myWorkspaces =
 
 floatingClasses :: [String]
 floatingClasses =
-    [ "Gimp"
-    , "pinentry"
+    [ "pinentry"
     , "keepassx"
-    , "pidgin"
-    , "Mumble"
     , "Steam"
     , "VirtualBox"
+    ]
+    ++ graphicsClasses
+    ++ chatClasses
+    ++ officeClasses
+    ++ vmClasses
+
+ignoreTransparencyClasses :: [String]
+ignoreTransparencyClasses = concat
+    [ graphicsClasses
+    , officeClasses
+    , mediaClasses
+    ]
+
+graphicsClasses :: [String]
+graphicsClasses =
+    [ "Gimp"
+    , "Inkscape"
+    , "Pencil"
+    ]
+
+chatClasses :: [String]
+chatClasses =
+    [ "Mumble"
+    , "Pidgin"
+    ]
+
+officeClasses :: [String]
+officeClasses =
+    [ "libreoffice"
+    , "libreoffice-calc"
+    , "libreoffice-draw"
+    , "libreoffice-startcenter"
+    , "libreoffice-writer"
+    , "soffice"
+    ]
+
+mediaClasses :: [String]
+mediaClasses =
+    [ "MComix"
+    , "Mirage"
+    , "Vlc"
+    , "Zathura"
+    , "feh"
+    , "mpv"
+    ]
+
+vmClasses :: [String]
+vmClasses =
+    [ "VirtualBox"
+    , "virt-manager"
+    , "Genymotion"
+    , "player"
     ]
 
 myManageHook :: Query (Endo WindowSet)
