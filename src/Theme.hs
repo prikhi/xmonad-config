@@ -125,6 +125,11 @@ networkDownload :: String -> String
 networkDownload =
     xmobarColor cyan background
 
+weather :: String -> String
+weather =
+    xmobarColor white background
+
+
 date :: String -> String
 date =
     xmobarColor orange background
