@@ -11,6 +11,7 @@ import XMonad.Actions.OnScreen (viewOnScreen)
 import XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
 import XMonad.Hooks.InsertPosition (insertPosition, Focus(Newer), Position(End))
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
+import XMonad.Hooks.ManageHelpers (isInProperty)
 import XMonad.Hooks.DynamicBars (multiPPFormat)
 import XMonad.Hooks.FadeInactive (fadeOutLogHook, isUnfocused)
 import XMonad.Layout.IndependentScreens (countScreens, withScreens, onCurrentScreen, workspaces', marshall)
@@ -242,6 +243,7 @@ ignoreTransparencyClasses = concat
     [ graphicsClasses
     , officeClasses
     , mediaClasses
+    , vmClasses
     ]
 
 graphicsClasses :: [String]
@@ -287,7 +289,8 @@ vmClasses =
 
 myManageHook :: ManageHook
 myManageHook = composeAll <|
-    [ className =? "Pale moon" --> shiftAndView 0 "www"
+    [ isNotification --> doIgnore
+    , className =? "Pale moon" --> shiftAndView 0 "www"
     , className =? "Chromium" --> shiftAndView 1 "www"
     ]
     ++ map (\name -> className =? name --> doFloat) floatingClasses
@@ -297,6 +300,9 @@ myManageHook = composeAll <|
     ++ map (\name -> className =? name --> shiftAndView 1 "media") mediaClasses
     ++ map (\name -> className =? name --> shiftAndView 0 "misc") vmClasses
     where
+        isNotification :: Query Bool
+        isNotification =
+            isInProperty "_NET_WM_WINDOW_TYPE" "_NET_WM_WINDOW_TYPE_NOTIFICATION"
         shiftAndView :: ScreenId -> WorkspaceId -> ManageHook
         shiftAndView s t =
               doF $ viewOnScreen s (marshall s t) >> W.shift (marshall s t)
