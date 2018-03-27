@@ -25,7 +25,14 @@ addons:
     packages:
       - libgmp-dev
 
+# Handle submodules ourselves
+git:
+    submodules: false
+
 before_install:
+# Use sed to replace SSH submodule URLs
+- sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+- git submodule update --init --recursive
 # Download and unpack the stack executable
 - mkdir -p ~/.local/bin
 - export PATH=$HOME/.local/bin:$PATH
