@@ -7,12 +7,13 @@ import XMonad.Hooks.DynamicLog
 
 import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Actions.Navigation2D (withNavigation2DConfig, windowGo, windowSwap, Direction2D(..))
+import XMonad.Actions.OnScreen (viewOnScreen)
 import XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
 import XMonad.Hooks.InsertPosition (insertPosition, Focus(Newer), Position(End))
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 import XMonad.Hooks.DynamicBars (multiPPFormat)
 import XMonad.Hooks.FadeInactive (fadeOutLogHook, isUnfocused)
-import XMonad.Layout.IndependentScreens (countScreens, withScreens, onCurrentScreen, workspaces')
+import XMonad.Layout.IndependentScreens (countScreens, withScreens, onCurrentScreen, workspaces', marshall)
 import XMonad.Layout.NoBorders (noBorders, smartBorders)
 import XMonad.Layout.Maximize (maximizeWithPadding, maximizeRestore)
 import XMonad.Layout.PerScreen (ifWider)
@@ -21,7 +22,7 @@ import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Util.SpawnOnce (spawnOnce)
 
 import Data.List (isPrefixOf)
-import Data.Monoid (All, Endo)
+import Data.Monoid (All)
 import Flow
 import System.Exit (ExitCode(..), exitSuccess)
 import System.Process (readProcessWithExitCode)
@@ -211,7 +212,7 @@ myWorkspaces =
         , "www"
         , "code"
         , "chat"
-        , "graphics"
+        , "draw"
         , "media"
         , "sese"
         , "fic"
@@ -284,9 +285,21 @@ vmClasses =
     , "player"
     ]
 
-myManageHook :: Query (Endo WindowSet)
+myManageHook :: ManageHook
 myManageHook = composeAll <|
-    map (\name -> className =? name --> doFloat) floatingClasses
+    [ className =? "Pale moon" --> shiftAndView 0 "www"
+    , className =? "Chromium" --> shiftAndView 1 "www"
+    ]
+    ++ map (\name -> className =? name --> doFloat) floatingClasses
+    ++ map (\name -> className =? name --> shiftAndView 0 "draw") graphicsClasses
+    ++ map (\name -> className =? name --> shiftAndView 0 "chat") chatClasses
+    ++ map (\name -> className =? name --> shiftAndView 0 "office") officeClasses
+    ++ map (\name -> className =? name --> shiftAndView 1 "media") mediaClasses
+    ++ map (\name -> className =? name --> shiftAndView 0 "misc") vmClasses
+    where
+        shiftAndView :: ScreenId -> WorkspaceId -> ManageHook
+        shiftAndView s t =
+              doF $ viewOnScreen s (marshall s t) >> W.shift (marshall s t)
 
 -- }}}
 

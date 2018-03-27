@@ -26,7 +26,6 @@ Things Awesome does that I like:
 * Multiple tag viewing, Clients on multiple tags
 * Keybindings to/from floating
 * Floating layout
-* Shutdown commands
 * Configure & launch hs-notifications from xmonad
 * Layout icons
 * "Has Windows" Icons next to tag names
@@ -37,7 +36,6 @@ Things Awesome does that I like:
 * Jump to Urgent
 * ncmpcpp dropdown  (Util.Scratchpad)
 * Keep on Top keybinding
-* Per-Client Opacity Settings, Ignore Transparency Classes, Unfocused Dim
 * Mod-RightMouseBtn to resize master width
 
 Extra things I want it to do:
