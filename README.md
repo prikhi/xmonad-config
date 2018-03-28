@@ -34,7 +34,7 @@ Things Awesome does that I like:
 * Click window in taskbar to minimize/restore
 * Minimize windows
 * Increase / Decrease Column Count
-* Jump to Urgent
+* Jump to Urgent - make it change focused screen if necessary
 * ncmpcpp dropdown  (Util.Scratchpad)
 * Keep on Top keybinding
 * Mod-RightMouseBtn to resize master width
@@ -44,6 +44,9 @@ Extra things I want it to do:
 * Quick note taking to a file   (Prompt.AppendFile)
 * Quick access to calculator
 * Native systray & notifications
+* Native randomized wallpaper changes? Or just keep using feh-bg.
+* Supervise & re-start statusbar/notification threads:
+    https://hackage.haskell.org/package/threads-supervisor-1.1.0.0/docs/Control-Concurrent-Supervisor-Tutorial.html
 * Proper dynamic tagging + autotagging new windows
   (sometimes assigned tags get fucked in awesome)
     * Need to write custom XMonad.Prompt that will use DynamicWorkspaces

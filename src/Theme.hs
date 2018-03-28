@@ -62,6 +62,18 @@ green =
 
 -- }}}
 
+-- {{{ BORDERS
+
+focusedBorder :: String
+focusedBorder =
+    orange
+
+urgentBorder :: String
+urgentBorder =
+    cyan
+
+-- }}}
+
 -- {{{ PROMPT
 
 promptForeground :: String
