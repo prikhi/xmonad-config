@@ -1,4 +1,4 @@
-# Pavan's Potential xmonad Configuration.
+# My xmonad Configuration
 
 I really like awesome but would love to write configs in haskell instead of
 lua.
@@ -7,6 +7,8 @@ You should also install:
 
 * `trayer` - system tray
 * `mpc` - control MPD
+* `scrot` - screenshots
+
 
 ## Usage
 

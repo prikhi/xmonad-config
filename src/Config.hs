@@ -347,6 +347,15 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
 
     -- MISC UTILITIES
 
+    -- Take a Screenshot
+    , ( ( noModMask, xK_Print )
+      , spawn "scrot"
+      )
+    -- Take a Screenshot & Open it in Gimp
+    , ( ( shiftMask, xK_Print )
+      , spawn "scrot -e 'gimp $f'"
+      )
+
     -- Toggle Workrave On & Off
     , ( ( modm, xK_F11 )
       , spawn "pkill workrave || workrave"
