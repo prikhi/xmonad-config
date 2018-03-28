@@ -365,6 +365,16 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
       , spawn "pkill compton || compton -b"
       )
 
+    -- Toggle Floating
+    , ( ( modm .|. controlMask, xK_z )
+      , withFocused $ \windowId -> do
+            floatingWindows <- gets (W.floating . windowset)
+            if windowId `Map.member` floatingWindows then
+                windows $ W.sink windowId
+            else
+                float windowId
+      )
+
 
 
     -- EXTENSIONS
@@ -512,11 +522,6 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
       )
     , ( ( modm .|. shiftMask, xK_i )
       , sendMessage <| IncMasterN (-1)
-      )
-
-    -- Un-Float Window
-    , ( ( modm .|. controlMask, xK_z )
-      , withFocused <| windows <. W.sink
       )
 
     -- Quit / Restart

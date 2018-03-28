@@ -26,11 +26,11 @@ Things Awesome does that I like:
 * Keyboard shortcut popup
 * On click tag selection
 * Multiple tag viewing, Clients on multiple tags
-* Keybindings to/from floating
+* Better Floating Placement when using keyboard toggle
 * Floating layout
 * Configure & launch hs-notifications from xmonad
 * Layout icons
-* "Has Windows" Icons next to tag names
+* "Has Windows" Icons next to active tag name
 * MPD Widget
 * Click window in taskbar to minimize/restore
 * Minimize windows
