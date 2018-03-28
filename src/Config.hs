@@ -108,7 +108,7 @@ myStartupHook :: X ()
 myStartupHook =
     let
         startupCommands =
-            [ "compton -b"
+            [ "compton -b -f"
             , "keepassx -min -lock"
             , "mount ~/.passwords/"
             , "mumble"
@@ -362,7 +362,7 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
       )
     -- Toggle Compton On & Off
     , ( ( modm, xK_F12 )
-      , spawn "pkill compton || compton -b"
+      , spawn "pkill compton || compton -b -f"
       )
 
     -- Toggle Floating
