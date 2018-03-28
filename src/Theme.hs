@@ -177,23 +177,23 @@ focusedScreenPP = xmobarPP
     , ppVisible =
         const ""
     , ppCurrent =
-        currentWorkspace . pad . dropPrefix
+        currentWorkspace . pad . unmarshallW
     , ppUrgent =
-        urgentWorkspace . pad . dropPrefix
+        urgentWorkspace . pad . unmarshallW
     , ppSep =
         pad statusSeparator
     , ppWsSep =
         ""
     , ppExtras =
-        [ logAllWindowTitles renderWindowTitle ]
+        [ logAllWindowTitles renderWindowTitle
+        ]
     }
-    where dropPrefix =
-            dropWhile (/= '_') .> drop 1
-          renderWindowTitle active t =
+    where
+        renderWindowTitle active t =
             if active == Just t then
-                (focusedTitle . pad . show) <$> getName t
+                focusedTitle . pad . show <$> getName t
             else
-                (unfocusedTitle . pad . show) <$> getName t
+                unfocusedTitle . pad . show <$> getName t
 
 -- | Similar to the `focusedScreenPP` but with every window title de-emphasized.
 unfocusedScreenPP  :: PP
