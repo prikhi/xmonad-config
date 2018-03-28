@@ -2,6 +2,7 @@ module Theme where
 
 import XMonad (X, Window, withWindowSet, getXMonadDir)
 import XMonad.Hooks.DynamicLog (PP(..), xmobarColor, pad, xmobarPP)
+import XMonad.Layout.IndependentScreens (unmarshallW)
 import XMonad.Util.NamedWindows (getName)
 
 import Data.List (intercalate)
@@ -143,6 +144,8 @@ getIconDirectory =
 data Icon
     = Separator
     | CPU
+    | CurrentWorkspaceHasWindows
+    | HiddenWorkspaceHasWindows
 
 icon :: Icon -> String
 icon i =
@@ -152,6 +155,10 @@ icon i =
                 "sep"
             CPU ->
                 "cpu"
+            CurrentWorkspaceHasWindows ->
+                "windowcur"
+            HiddenWorkspaceHasWindows ->
+                "window"
 
     in
         "<icon=" ++ name ++ ".xpm/>"
@@ -195,6 +202,7 @@ unfocusedScreenPP =
         { ppExtras =
             [ logAllWindowTitles (const <| fmap (unfocusedTitle . pad . show) . getName) ]
         }
+
 
 -- Render every Window in the WindowSet for the Pretty Printers.
 logAllWindowTitles :: (Maybe Window -> Window -> X String) -> X (Maybe String)

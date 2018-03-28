@@ -30,7 +30,6 @@ Things Awesome does that I like:
 * Floating layout
 * Configure & launch hs-notifications from xmonad
 * Layout icons
-* "Has Windows" Icons next to active tag name
 * MPD Widget
 * Click window in taskbar to minimize/restore
 * Minimize windows

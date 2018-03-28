@@ -14,7 +14,10 @@ import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 import XMonad.Hooks.ManageHelpers (isInProperty)
 import XMonad.Hooks.DynamicBars (multiPPFormat)
 import XMonad.Hooks.FadeInactive (fadeOutLogHook, isUnfocused)
-import XMonad.Layout.IndependentScreens (countScreens, withScreens, onCurrentScreen, workspaces', marshall)
+import XMonad.Layout.IndependentScreens
+    ( countScreens, withScreens, onCurrentScreen, workspaces', marshall
+    , unmarshallW, unmarshallS
+    )
 import XMonad.Layout.NoBorders (noBorders, smartBorders)
 import XMonad.Layout.Maximize (maximizeWithPadding, maximizeRestore)
 import XMonad.Layout.PerScreen (ifWider)
@@ -22,6 +25,7 @@ import XMonad.Prompt (XPConfig(..), XPPosition(..))
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Util.SpawnOnce (spawnOnce)
 
+import Control.Monad ((>=>))
 import Data.List (isPrefixOf)
 import Data.Monoid (All)
 import Flow
@@ -177,28 +181,55 @@ transparencyLogHook =
 
 -- | Render each Screen's Workspaces into their own xmobar, highlighting
 -- the current Screen's window title.
+--
+-- TODO: Move to `StatusBar` module?
 xmobarLogHook :: X ()
 xmobarLogHook =
-    multiPPFormat onlyCurrentScreen Theme.focusedScreenPP Theme.unfocusedScreenPP
+    multiPPFormat
+        (onlyCurrentScreen >=> withCurrentIcon >=> dynamicLogString)
+        Theme.focusedScreenPP
+        Theme.unfocusedScreenPP
     where
         -- Only show workspaces on the bar's screen
-        onlyCurrentScreen :: PP -> X String
+        onlyCurrentScreen :: PP -> X PP
         onlyCurrentScreen pp =
-            gets (windowset .> W.current .> W.screen)
-                >>= hideOffScreen pp .> dynamicLogString
+            hideOffScreen pp <$> gets (windowset .> W.current .> W.screen)
         -- Hide any hidden workspaces on other screens
         hideOffScreen :: PP -> ScreenId -> PP
-        hideOffScreen pp (S screenId) =
-            pp { ppHidden = showIfPrefix screenId
-               , ppHiddenNoWindows = showIfPrefix screenId
+        hideOffScreen pp screenId =
+            pp { ppHidden = showIfPrefix screenId True
+               , ppHiddenNoWindows = showIfPrefix screenId False
                }
         -- Only show the workspace if it's prefix matches the current screen.
-        showIfPrefix :: Int -> WorkspaceId -> String
-        showIfPrefix screenId workspaceId =
-            if (show screenId ++ "_") `isPrefixOf` workspaceId then
-                workspaceId |> dropWhile (/= '_') |> drop 1 |> pad
+        showIfPrefix :: ScreenId -> Bool -> WorkspaceId -> String
+        showIfPrefix screenId hasWindows workspaceId =
+            if screenId == unmarshallS workspaceId then
+                unmarshallW workspaceId |> \n ->
+                    if hasWindows then
+                        Theme.icon Theme.HiddenWorkspaceHasWindows ++ n ++ " "
+                    else
+                        pad n
             else
                 ""
+        -- Add an icon to visible workspaces with windows
+        withCurrentIcon :: PP -> X PP
+        withCurrentIcon pp = do
+            hasWindows <- gets $
+                windowset
+                    .> W.current
+                    .> W.workspace
+                    .> W.stack
+                    .> W.integrate'
+                    .> (not . null)
+            return $ pp { ppCurrent = renderCurrentWorkspace hasWindows }
+        -- Render the workspace name
+        renderCurrentWorkspace :: Bool -> String -> String
+        renderCurrentWorkspace hasWindows name =
+            unmarshallW name |> \n -> Theme.currentWorkspace $
+                if hasWindows then
+                    Theme.icon Theme.CurrentWorkspaceHasWindows ++ n ++ " "
+                else
+                    pad n
 
 -- }}}
 
