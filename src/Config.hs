@@ -478,10 +478,10 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
       )
 
     -- Next / First Layout
-    , ( ( modm, xK_space )
+    , ( ( modm, xK_z )
       , sendMessage NextLayout
       )
-    , ( ( modm .|. shiftMask, xK_space )
+    , ( ( modm .|. shiftMask, xK_z )
       , sendMessage FirstLayout
       )
 
