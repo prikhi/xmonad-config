@@ -25,8 +25,7 @@ import XMonad.Util.SpawnOnce (spawnOnce)
 import Data.List (isPrefixOf)
 import Data.Monoid (All)
 import Flow
-import System.Exit (ExitCode(..), exitSuccess)
-import System.Process (readProcessWithExitCode)
+import System.Exit (exitSuccess)
 
 import qualified Data.Map as Map
 import qualified XMonad.StackSet as W
@@ -592,8 +591,8 @@ moveCursorToFocus =
 -- | Fix the fact that XMonad doesn't set _NET_WM_STATE_FULLSCREEN, which
 -- breaks mpv's `f` key fullscreen keybind.
 fixMPVFullscreen :: XConfig l -> XConfig l
-fixMPVFullscreen c = c
-    { startupHook = startupHook c <+> setSupportedWithFullscreen
+fixMPVFullscreen conf = conf
+    { startupHook = startupHook conf <+> setSupportedWithFullscreen
     }
     where
         setSupportedWithFullscreen :: X ()
