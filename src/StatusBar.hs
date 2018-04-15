@@ -92,7 +92,7 @@ terminateProcesses =
 -- | The Desired Width of System Tray in Pixels.
 systemTrayWidth :: Int
 systemTrayWidth =
-    90
+    100
 
 -- | Start the System Tray Process.
 startSystemTray :: X ()
