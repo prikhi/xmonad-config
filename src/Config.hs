@@ -276,6 +276,7 @@ ignoreTransparencyClasses = concat
     , officeClasses
     , mediaClasses
     , vmClasses
+    , gameClasses
     ]
 
 graphicsClasses :: [String]
@@ -317,6 +318,31 @@ vmClasses =
     , "virt-manager"
     , "Genymotion"
     , "player"
+    ]
+
+gameClasses :: [String]
+gameClasses =
+    [ "Civ5XP"
+    , "DefendersQuest"
+    , "Dolphin-emu"
+    , "FrozenSynapse"
+    , "KOTOR2"
+    , "Mainwindow.py"   -- PlayOnLinux
+    , "Mojosetup"       -- GOG Installer
+    , "Pcsx2"
+    , "Psychonauts"
+    , "RogueCastle.bin.x86_64"
+    , "Steam"
+    , "Torchlight2.bin.x86_64"
+    , "Wine"
+    , "X3TC_main"
+    , "csgo_linux"
+    , "dota_linux"
+    , "eu4"
+    , "hoi4"
+    , "ns2_linux32"
+    , "stellaris"
+    , "superhexagon.x86_64"
     ]
 
 myManageHook :: ManageHook
