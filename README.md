@@ -38,10 +38,14 @@ Things Awesome does that I like:
 * ncmpcpp dropdown  (Util.Scratchpad)
 * Keep on Top keybinding
 * Mod-RightMouseBtn to resize master width
+* Shell Prompt below the status bar instead of overlaid on top
+* Equal spacing to each window in status bar.
 
 Extra things I want it to do:
 
 * Quick note taking to a file   (Prompt.AppendFile)
+    * Maybe different modes for different lists, eg. shopping list, notes, todo
+      list
 * Quick access to calculator
 * Native systray & notifications
 * Native randomized wallpaper changes? Or just keep using feh-bg.
