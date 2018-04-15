@@ -337,7 +337,7 @@ myManageHook = composeAll <|
             isInProperty "_NET_WM_WINDOW_TYPE" "_NET_WM_WINDOW_TYPE_NOTIFICATION"
         shiftAndView :: ScreenId -> WorkspaceId -> ManageHook
         shiftAndView s t =
-              doF $ viewOnScreen s (marshall s t) >> W.shift (marshall s t)
+            doF $ viewOnScreen s (marshall  s t) . W.shift (marshall s t)
 
 -- }}}
 
