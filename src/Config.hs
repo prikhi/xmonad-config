@@ -350,6 +350,7 @@ myManageHook :: ManageHook
 myManageHook = composeAll <|
     [ isNotification --> doIgnore
     , className =? "Pale moon" --> shiftAndView 0 "www"
+    , className =? "newmoon" --> shiftAndView 1 "www"
     , className =? "Chromium" --> shiftAndView 1 "www"
     ]
     ++ map (\name -> className =? name --> doFloat) floatingClasses
