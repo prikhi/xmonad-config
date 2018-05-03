@@ -159,7 +159,7 @@ transparencyLogHook =
     where
         inactiveTransparency :: Rational
         inactiveTransparency =
-            0.94
+            0.9
         activeTransparency :: Rational
         activeTransparency =
             0.98
