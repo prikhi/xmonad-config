@@ -101,7 +101,7 @@ myLayoutHook =
         delta =
             3 / 100
         mwfact =
-            2 / 3
+            2 / 5
 
 -- }}}
 
