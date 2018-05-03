@@ -28,6 +28,10 @@ Things Awesome does that I like:
 * Multiple tag viewing, Clients on multiple tags
 * Better Floating Placement when using keyboard toggle
 * Floating layout
+* Maximizable floating windows
+    * Add custom maximize function, checks if window floating, if so adds to
+      floating set(in ExtensibleState), unfloats, & maximizes. When
+      un-maximized, float & re-position.
 * Configure & launch hs-notifications from xmonad
 * Layout icons
 * MPD Widget
