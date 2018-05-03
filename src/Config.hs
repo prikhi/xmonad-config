@@ -415,6 +415,13 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
     , ( ( shiftMask, xK_Print )
       , spawn "scrot -e 'gimp $f'"
       )
+    -- Screenshot a Specific Windows by Adding the Control Modifier
+    , ( ( controlMask, xK_Print )
+      , spawn "scrot -s"
+      )
+    , ( ( shiftMask .|. controlMask, xK_Print )
+      , spawn "scrot -s -e 'gimp $f'"
+      )
 
     -- Toggle Workrave On & Off
     , ( ( modm, xK_F11 )
