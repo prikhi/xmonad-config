@@ -113,20 +113,21 @@ myStartupHook :: X ()
 myStartupHook =
     let
         startupCommands =
-            [ "compton -b -f"
-            , "keepassx -min -lock"
+            [ "udevil clean"
             , "mount ~/.passwords/"
+            -- Services
+            , "urxvtd -f -o -q"
+            , "pasystray"
+            , "workrave"
+            , "hs-notifications"
+            , "~/.bin/mailcheck.sh"
+            , "compton -b -f"
+            , "systemctl --user start redshift"
+            , "unclutter -idle 2 -grab"
+            -- Apps
             , "mumble"
             , "newmoon"
             , "palemoon"
-            , "pasystray"
-            , "pidgin"
-            , "systemctl --user start redshift"
-            , "udevil clean"
-            , "unclutter -idle 2 -grab"
-            , "urxvtd -f -o -q"
-            , "workrave"
-            , "~/.bin/mailcheck.sh"
             ]
     in
         StatusBar.startupHook
