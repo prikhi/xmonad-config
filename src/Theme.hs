@@ -138,10 +138,29 @@ networkDownload :: String -> String
 networkDownload =
     xmobarColor cyan background
 
+mpdTitle :: String -> String
+mpdTitle =
+    xmobarColor orange background
+
+mpdSeparator :: String
+mpdSeparator =
+    xmobarColor white background " - "
+
+mpdArtist :: String -> String
+mpdArtist =
+    xmobarColor cyan background
+
+mpdPaused :: String -> String
+mpdPaused =
+    xmobarColor magenta background
+
+mpdStopped :: String -> String
+mpdStopped =
+    xmobarColor white background
+
 weather :: String -> String
 weather =
     xmobarColor white background
-
 
 date :: String -> String
 date =

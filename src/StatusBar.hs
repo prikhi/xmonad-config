@@ -6,7 +6,7 @@ import XMonad (X, ExtensionClass(..), Typeable, Event, ScreenId(S), getXMonadCac
 import XMonad.Hooks.DynamicBars (dynStatusBarStartup, dynStatusBarEventHook)
 import Xmobar.Config (Config(..), XPosition(OnScreen, Top, TopP), defaultConfig)
 import Xmobar.Plugins.Date (Date(Date))
-import Xmobar.Plugins.Monitors (Monitors(Network, Cpu, Weather))
+import Xmobar.Plugins.Monitors (Monitors(Network, Cpu, Weather, MPD))
 import Xmobar.Runnable (Runnable(Run))
 
 import Control.Monad (when)
@@ -157,7 +157,14 @@ long = xmobarConfig
     { position =
         Top
     , commands =
-        [ Run $ Network "enp3s0"
+        [ Run $ MPD
+            [ "-t", "<statei>"
+            , "--"
+            , "-Z", Theme.mpdPaused "mpd paused"
+            , "-S", Theme.mpdStopped "mpd stopped"
+            , "-P", Theme.mpdTitle "<title>" ++ Theme.mpdSeparator ++ Theme.mpdArtist "<artist>"
+            ] 10
+        , Run $ Network "enp3s0"
             [ "-t"
             , Theme.networkUpload "<tx> KB ^" ++ Theme.networkDownload "v <rx> KB"
             ]
@@ -181,6 +188,8 @@ long = xmobarConfig
     , template = unwords
         [ "%pipe%"
         , "}{"
+        , "%mpd%"
+        , Theme.statusSeparator
         , "%enp3s0%"
         , Theme.statusSeparator
         , Theme.icon Theme.CPU
