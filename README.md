@@ -8,6 +8,9 @@ You should also install:
 * `trayer` - system tray
 * `mpc` - control MPD
 * `scrot` - screenshots
+* `libdbusmenu-gtk3` - required for taffybar.
+* `xembed-sni-proxy` - lets old XEMBED icons show up in the systray.
+
 
 
 ## Usage

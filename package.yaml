@@ -31,17 +31,29 @@ library:
     - xmonad-contrib
     - X11
 
-executable:
-  main: xmonad.hs
-  other-modules: []
-  ghc-options:
-    - -i
-    - -ilib
-    - -fforce-recomp
-    - -v0
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
-    - -Wall
-  dependencies:
-    - xmonad-prikhi
+executables:
+  xmonad-prikhi:
+    main: xmonad.hs
+    other-modules: []
+    ghc-options:
+      - -i
+      - -ilib
+      - -fforce-recomp
+      - -v0
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - xmonad-prikhi
+      - safe-exceptions
+  taffybar-prikhi:
+    main: taffybar.hs
+    other-modules: []
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - xmonad-prikhi
+      - gtk3
+      - taffybar

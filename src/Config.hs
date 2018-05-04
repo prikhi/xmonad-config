@@ -377,7 +377,7 @@ myManageHook = composeAll <|
 -- Multi-Head Configuration Changes.
 myEventHook :: Event -> X All
 myEventHook =
-    fullscreenEventHook <+> StatusBar.eventHook
+    fullscreenEventHook -- <+> StatusBar.eventHook
 
 -- }}}
 

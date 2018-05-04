@@ -112,19 +112,19 @@ statusBarBackground =
 
 focusedTitle :: String -> String
 focusedTitle =
-    xmobarColor black orange
+    taffybarColor black orange
 
 unfocusedTitle :: String -> String
 unfocusedTitle =
-    xmobarColor orange background
+    taffybarColor orange background
 
 currentWorkspace :: String -> String
 currentWorkspace =
-    xmobarColor black magenta
+    taffybarColor black magenta
 
 urgentWorkspace :: String -> String
 urgentWorkspace =
-    xmobarColor black cyan
+    taffybarColor black cyan
 
 statusSeparator :: String
 statusSeparator =
@@ -132,20 +132,25 @@ statusSeparator =
 
 networkUpload :: String -> String
 networkUpload =
-    xmobarColor green background
+    taffybarColor green background
 
 networkDownload :: String -> String
 networkDownload =
-    xmobarColor cyan background
+    taffybarColor cyan background
 
 weather :: String -> String
 weather =
-    xmobarColor white background
+    taffybarColor white background
 
 
 date :: String -> String
 date =
-    xmobarColor orange background
+    taffybarColor orange background
+
+taffybarColor :: String -> String -> String -> String
+taffybarColor fg bg text =
+    "<span fgcolor='" ++ fg ++ "' bgcolor='" ++ bg ++ "'>" ++ text ++ "</span>"
+
 
 -- Icons
 

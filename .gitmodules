@@ -7,3 +7,6 @@
 [submodule "xmonad"]
 	path = xmonad
 	url = https://github.com/xmonad/xmonad
+[submodule "taffybar"]
+	path = taffybar
+	url = git@github.com:taffybar/taffybar.git

@@ -18,14 +18,17 @@ import qualified XMonad.Util.ExtensibleState as XS
 
 import qualified Theme
 import qualified XmobarStub
+import Paths_xmonad_prikhi
 
 
 -- Hooks
 
 -- | Start the Status Bars & System Tray.
 startupHook :: X ()
-startupHook =
-    dynStatusBarStartup dynamic dynamicCleanup
+startupHook = do
+    -- dynStatusBarStartup dynamic dynamicCleanup
+    binDir <- liftIO getBinDir
+    spawn $ binDir ++ "/taffybar-prikhi"
 
 
 -- | Restart the Status Bars & System Tray on Monitor / Screen Changes
@@ -36,7 +39,7 @@ eventHook =
 -- | Stop the Status Bar & System Tray Processes.
 stopHook :: X ()
 stopHook =
-    dynamicCleanup
+    spawn "pkill taffybar-prikhi" -- dynamicCleanup
 
 
 -- | Start the Status Bar for the Screen.
