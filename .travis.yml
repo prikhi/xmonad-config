@@ -24,6 +24,7 @@ addons:
   apt:
     packages:
       - libgmp-dev
+      - libxrandr-dev
 
 # Handle submodules ourselves
 git:
