@@ -40,6 +40,10 @@ white :: String
 white =
     "#F8F8F0"
 
+grey :: String
+grey =
+    "#5F5F5F"
+
 red :: String
 red =
     "#FF0000"
@@ -66,7 +70,7 @@ green =
 
 focusedBorder :: String
 focusedBorder =
-    orange
+    magenta
 
 urgentBorder :: String
 urgentBorder =
@@ -156,7 +160,7 @@ mpdPaused =
 
 mpdStopped :: String -> String
 mpdStopped =
-    xmobarColor white background
+    xmobarColor grey background
 
 weather :: String -> String
 weather =
