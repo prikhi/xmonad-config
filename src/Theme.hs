@@ -181,6 +181,7 @@ data Icon
     | CPU
     | CurrentWorkspaceHasWindows
     | HiddenWorkspaceHasWindows
+    | UrgentWorkspaceHasWindows
 
 icon :: Icon -> String
 icon i =
@@ -194,6 +195,8 @@ icon i =
                 "windowcur"
             HiddenWorkspaceHasWindows ->
                 "window"
+            UrgentWorkspaceHasWindows ->
+                "windowurg"
 
     in
         "<icon=" ++ name ++ ".xpm/>"
@@ -214,7 +217,7 @@ focusedScreenPP = xmobarPP
     , ppCurrent =
         currentWorkspace . pad . unmarshallW
     , ppUrgent =
-        urgentWorkspace . pad . unmarshallW
+        id
     , ppSep =
         pad statusSeparator
     , ppWsSep =

@@ -198,13 +198,17 @@ xmobarLogHook =
         onlyCurrentScreen :: PP -> X PP
         onlyCurrentScreen pp =
             hideOffScreen pp <$> gets (windowset .> W.current .> W.screen)
-        -- Hide any hidden workspaces on other screens
+        -- Hide any workspaces on other screens
         hideOffScreen :: PP -> ScreenId -> PP
         hideOffScreen pp screenId =
             pp { ppHidden = showIfPrefix screenId True
                , ppHiddenNoWindows = showIfPrefix screenId False
+               , ppUrgent = showUrgent screenId
                }
         -- Only show the workspace if it's prefix matches the current screen.
+        --
+        -- Note: Will throw a `read: no parse` error if the WorkspaceId has
+        -- already had the screen prefix removed.
         showIfPrefix :: ScreenId -> Bool -> WorkspaceId -> String
         showIfPrefix screenId hasWindows workspaceId =
             if screenId == unmarshallS workspaceId then
@@ -215,6 +219,17 @@ xmobarLogHook =
                         pad n
             else
                 ""
+        -- Show urgent workspaces on the current screen with an icon and
+        -- special background color.
+        showUrgent :: ScreenId -> WorkspaceId -> String
+        showUrgent screenId workspaceId =
+            let prefixRemoved = drop 1 $ showIfPrefix screenId False workspaceId
+            in
+            if prefixRemoved == "" then
+                ""
+            else
+                Theme.icon Theme.UrgentWorkspaceHasWindows
+                    ++ Theme.urgentWorkspace prefixRemoved
         -- Add an icon to visible workspaces with windows
         withCurrentIcon :: PP -> X PP
         withCurrentIcon pp = do
