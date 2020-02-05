@@ -52,7 +52,7 @@ dynamic (S screenId) =
                 2 ->
                     short
                 _ ->
-                    long
+                    blank
     in
         when (screenId == 0) startSystemTray
             >> runXmobar config screenId
@@ -223,3 +223,6 @@ short = long
         , ""
         ]
     }
+
+blank :: Config
+blank = long { commands = [], template = "" }
