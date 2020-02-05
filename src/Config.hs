@@ -266,6 +266,7 @@ floatingClasses =
     , "keepassx"
     , "Steam"
     , "VirtualBox"
+    , "Edmarketconnector"
     ]
     ++ graphicsClasses
     ++ chatClasses
