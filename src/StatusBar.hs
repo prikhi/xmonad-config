@@ -183,7 +183,7 @@ long = xmobarConfig
             , "2"
             ]
             25
-        , Run $ Date "%a %_d %b %H:%M" "date" 10
+        , Run $ Date "%a %d %b %H:%M" "date" 10
         ]
     , template = unwords
         [ "%pipe%"
