@@ -9,7 +9,6 @@ import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Actions.Navigation2D (withNavigation2DConfig, windowGo, windowSwap, Direction2D(..))
 import XMonad.Actions.OnScreen (viewOnScreen)
 import XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
-import XMonad.Hooks.InsertPosition (insertPosition, Focus(Newer), Position(End))
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 import XMonad.Hooks.ManageHelpers (isInProperty)
 import XMonad.Hooks.DynamicBars (multiPPFormat)
@@ -65,7 +64,7 @@ myConfig = do
         , workspaces =
             myWorkspaces screenCount
         , manageHook =
-            insertPosition End Newer <+> myManageHook
+            myManageHook
         , handleEventHook =
             myEventHook <+> handleEventHook def
         , keys =
