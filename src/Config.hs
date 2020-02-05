@@ -44,7 +44,7 @@ import qualified StatusBar
 --
 -- Starts a xmobar on the primary monitor & feeds it the status bar text.
 myConfig = do
-    screenCount <- countScreens
+    screenCount_ <- countScreens
     def { terminal =
             "urxvt"
         , modMask =
@@ -62,7 +62,7 @@ myConfig = do
         , logHook =
             myLogHook
         , workspaces =
-            myWorkspaces screenCount
+            myWorkspaces screenCount_
         , manageHook =
             myManageHook
         , handleEventHook =
@@ -180,7 +180,7 @@ transparencyLogHook =
             foldl (<||>) (return False) opaqueChecks
         opaqueChecks :: [Query Bool]
         opaqueChecks =
-            map (\name -> className =? name) ignoreTransparencyClasses
+            map (className =?) ignoreTransparencyClasses
 
 
 -- | Render each Screen's Workspaces into their own xmobar, highlighting
