@@ -39,6 +39,7 @@ executable:
     - -ilib
     - -fforce-recomp
     - -v0
+    - -O2
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
