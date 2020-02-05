@@ -121,7 +121,7 @@ myStartupHook =
             , "workrave"
             , "hs-notifications"
             , "~/.bin/mailcheck.sh"
-            , "compton -b -f"
+            , "picom -b -cCf"
             , "systemctl --user start redshift"
             , "unclutter -idle 2 -grab"
             -- Apps
@@ -427,9 +427,9 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
     , ( ( modm, xK_F11 )
       , spawn "pkill workrave || workrave"
       )
-    -- Toggle Compton On & Off
+    -- Toggle Picom On & Off
     , ( ( modm, xK_F12 )
-      , spawn "pkill compton || compton -b -f"
+      , spawn "pkill picom || picom -b -cCf"
       )
 
     -- Toggle Floating
