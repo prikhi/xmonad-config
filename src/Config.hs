@@ -15,8 +15,8 @@ import XMonad.Hooks.DynamicBars (multiPPFormat)
 import XMonad.Hooks.FadeInactive (fadeOutLogHook, isUnfocused)
 import XMonad.Hooks.UrgencyHook (withUrgencyHook, borderUrgencyHook, focusUrgent)
 import XMonad.Layout.IndependentScreens
-    ( countScreens, withScreens, onCurrentScreen, workspaces', marshall
-    , unmarshallW, unmarshallS
+    ( PhysicalWorkspace, countScreens, withScreens, onCurrentScreen, workspaces'
+    , marshall, unmarshallW, unmarshallS
     )
 import XMonad.Layout.NoBorders (noBorders, smartBorders)
 import XMonad.Layout.Maximize (maximizeWithPadding, maximizeRestore)
@@ -256,6 +256,7 @@ xmobarLogHook =
 
 -- {{{ WORKSPACES
 
+myWorkspaces :: ScreenId -> [PhysicalWorkspace]
 myWorkspaces =
     flip withScreens
         [ "term"
