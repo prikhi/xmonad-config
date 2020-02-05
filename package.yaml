@@ -1,48 +1,58 @@
-name:                xmonad-prikhi
-version:             "0.1.0.0"
-github:              "prikhi/xmonad-config"
-license:             GPL-3.0
-author:              "Pavan Rikhi"
-maintainer:          "pavan.rikhi@gmail.com"
-copyright:           "GPL-3.0"
+---
 
-description:         My xmonad Configuration
+name:
+    xmonad-prikhi
+version:
+    "0.1.0.0"
+github:
+    "prikhi/xmonad-config"
+license:
+    GPL-3.0
+author:
+    "Pavan Rikhi"
+maintainer:
+    "pavan.rikhi@gmail.com"
+copyright:
+    "GPL-3.0"
+
+description:
+    My xmonad Configuration
 
 
 dependencies:
-  - base >= 4.7 && < 5
-  - xmonad
+    - base >= 4.7 && < 5
+    - xmonad
 
 ghc-options:
-  - -Wall
-  - -Wcompat
-  - -Wincomplete-record-updates
-  - -Wincomplete-uni-patterns
-  - -Wredundant-constraints
+    - -Wall
+    - -Wcompat
+    - -Wincomplete-record-updates
+    - -Wincomplete-uni-patterns
+    - -Wredundant-constraints
 
 library:
-  source-dirs: src
-  dependencies:
-    - containers
-    - flow
-    - process
-    - unix
-    - xmobar
-    - xmonad-contrib
-    - X11
+    source-dirs: src
+    dependencies:
+        - containers
+        - flow
+        - process
+        - unix
+        - xmobar
+        - xmonad-contrib
+        - X11
 
 executable:
-  main: xmonad.hs
-  other-modules: []
-  ghc-options:
-    - -i
-    - -ilib
-    - -fforce-recomp
-    - -v0
-    - -O2
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
-    - -Wall
-  dependencies:
-    - xmonad-prikhi
+    main: xmonad.hs
+    other-modules: []
+    ghc-options:
+        - -i
+        - -ilib
+        - -fforce-recomp
+        - -v0
+        - -O2
+        - -threaded
+        - -rtsopts
+        - -with-rtsopts=-N
+        - -Wall
+    dependencies:
+        - xmonad-prikhi
