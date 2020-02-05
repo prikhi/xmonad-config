@@ -122,7 +122,8 @@ myStartupHook =
             , "hs-notifications"
             , "~/.bin/mailcheck.sh"
             , "picom -b -cCf"
-            , "systemctl --user start redshift"
+            , "hkhued"
+            , "hkhue redshift"
             , "unclutter -idle 2 -grab"
             -- Apps
             , "mumble"
