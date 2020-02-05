@@ -150,6 +150,7 @@ myLogHook :: X ()
 myLogHook =
     xmobarLogHook
     <+> transparencyLogHook
+    <+> spawn "xdotool-all hs-notifications windowraise"
 
 
 -- | Fade Out All Unfocused Windows, With Exceptions For Programs in
