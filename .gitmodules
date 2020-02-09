@@ -3,7 +3,7 @@
 	url = git@github.com:prikhi/xmobar.git
 [submodule "xmonad-contrib"]
 	path = xmonad-contrib
-	url = https://github.com/xmonad/xmonad-contrib
+	url = git@github.com:prikhi/xmonad-contrib.git
 [submodule "xmonad"]
 	path = xmonad
 	url = https://github.com/xmonad/xmonad
