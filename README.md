@@ -5,6 +5,7 @@ lua.
 
 You should also install:
 
+* `libxpm` - status bar icons
 * `trayer` - system tray
 * `mpc` - control MPD
 * `scrot` - screenshots
