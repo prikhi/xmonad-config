@@ -126,7 +126,6 @@ myStartupHook =
             , "hs-notifications"
             , "keepassx ~/.passwords/pavans_passwords.kdb -min -lock"
             -- Apps
-            , "mumble"
             , "palemoon"
             ]
     in
