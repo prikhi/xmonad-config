@@ -164,7 +164,7 @@ long = xmobarConfig
             , "-S", Theme.mpdStopped "mpd stopped"
             , "-P", Theme.mpdTitle "<title>" ++ Theme.mpdSeparator ++ Theme.mpdArtist "<artist>"
             ] 10
-        , Run $ Network "enp3s0"
+        , Run $ Network "enp0s25"
             [ "-t"
             , Theme.networkUpload "<tx> KB ^" ++ Theme.networkDownload "v <rx> KB"
             ]
@@ -190,7 +190,7 @@ long = xmobarConfig
         , "}{"
         , "%mpd%"
         , Theme.statusSeparator
-        , "%enp3s0%"
+        , "%enp0s25%"
         , Theme.statusSeparator
         , Theme.icon Theme.CPU
         , "%cpu%"
