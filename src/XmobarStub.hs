@@ -9,7 +9,7 @@ import System.Process (createPipe)
 
 -- | Run xmobar in a separate thread, taking input from the returned Handle.
 --
--- The PipeReader is given an alias of `pipe`.
+-- The HandleReader is given an alias of `handle`.
 run :: Config -> IO (Handle, ProcessID)
 run c = do
     (readHandle, writeHandle) <- createPipe
