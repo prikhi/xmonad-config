@@ -264,8 +264,8 @@ myWorkspaces =
         , "chat"
         , "draw"
         , "media"
-        , "sese"
-        , "fic"
+        , "proj"
+        , "game"
         , "misc"
         ]
 
