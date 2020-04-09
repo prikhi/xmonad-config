@@ -1,19 +1,10 @@
 module XmobarStub where
 
-import Xmobar (XConf(..), startCommand, createWin, startLoop)
-import Xmobar.Config (Config(..), defaultConfig)
-import Xmobar.Parsers (parseTemplate)
-import Xmobar.Plugins.PipeReader (PipeReader(PipeReader))
-import Xmobar.Runnable (Runnable(Run))
-import Xmobar.Signal (setupSignalHandler)
-import Xmobar.XUtil (initFont)
+import Xmobar (xmobar, Config(..), PipeReader(PipeReader), Runnable(Run))
 
-import Control.Monad (void)
-import Graphics.X11.Xlib (initThreads, openDisplay)
-import System.IO (BufferMode(NoBuffering, LineBuffering), IOMode(ReadWriteMode), Handle, hSetBuffering, openFile, stderr)
+import System.IO (BufferMode(NoBuffering), IOMode(ReadWriteMode), Handle, hSetBuffering, openFile)
 import System.Posix (ProcessID, forkProcess)
 
-import qualified Data.Map as Map
 import qualified System.Posix.Files as F
 
 
@@ -46,29 +37,4 @@ runWithPipe pipePath c = do
 
 -- | Run xmobar using the given config. Lifted from xmobar's Main.
 run :: Config -> IO ProcessID
-run conf = forkProcess $ do
-  hSetBuffering stderr LineBuffering
-  void initThreads
-  d <- openDisplay ""
-  fs    <- initFont d (font conf)
-  fl    <- mapM (initFont d) (additionalFonts conf)
-  cls   <- mapM (parseTemplate conf) (splitTemplate conf)
-  sig   <- setupSignalHandler
-  vars  <- mapM (mapM $ startCommand sig) cls
-  (r,w) <- createWin d fs conf
-  let ic = Map.empty
-  startLoop (XConf d r w (fs:fl) ic conf) sig vars
-
-
--- | Splits the template in its parts. Lifted from xmobar's Main.
-splitTemplate :: Config -> [String]
-splitTemplate conf =
-  case break (==l) t of
-    (le,_:re) -> case break (==r) re of
-                   (ce,_:ri) -> [le, ce, ri]
-                   _         -> def
-    _         -> def
-  where [l, r] = alignSep
-                   (if length (alignSep conf) == 2 then conf else defaultConfig)
-        t = template conf
-        def = [t, "", ""]
+run = forkProcess . xmobar

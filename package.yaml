@@ -39,7 +39,6 @@ library:
         - unix
         - xmobar
         - xmonad-contrib
-        - X11
 
 executable:
     main: xmonad.hs

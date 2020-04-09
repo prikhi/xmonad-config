@@ -4,10 +4,10 @@ module StatusBar where
 
 import XMonad (X, ExtensionClass(..), Typeable, Event, ScreenId(S), getXMonadCacheDir, liftIO, spawn)
 import XMonad.Hooks.DynamicBars (dynStatusBarStartup, dynStatusBarEventHook)
-import Xmobar.Config (Config(..), XPosition(OnScreen, Top, TopP), defaultConfig)
-import Xmobar.Plugins.Date (Date(Date))
-import Xmobar.Plugins.Monitors (Monitors(Network, Cpu, Weather, MPD))
-import Xmobar.Runnable (Runnable(Run))
+import Xmobar
+    ( Config(..), XPosition(OnScreen, Top, TopP), Date(Date)
+    , Monitors(Network, Cpu, Weather, MPD), Runnable(Run), defaultConfig
+    )
 
 import Control.Monad (when)
 import Data.Monoid (All)
