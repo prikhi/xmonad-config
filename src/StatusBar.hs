@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 module StatusBar where
 
-import XMonad (X, ExtensionClass(..), Typeable, Event, ScreenId(S), getXMonadCacheDir, liftIO, spawn)
+import XMonad (X, ExtensionClass(..), Typeable, Event, ScreenId(S), liftIO, spawn)
 import XMonad.Hooks.DynamicBars (dynStatusBarStartup, dynStatusBarEventHook)
 import Xmobar
     ( Config(..), XPosition(OnScreen, Top, TopP), Date(Date)
@@ -65,6 +65,8 @@ dynamicCleanup =
 
 
 -- Storage
+--
+-- TODO: Move to XmobarStub module.
 
 -- | Persistent Storage for the list of Status Bar ProcessIDs.
 newtype StatusBarStorage
@@ -121,17 +123,15 @@ stopSystemTray =
 
 -- Xmobar
 
--- | Run xmobar on a Specific Screen & Return an Output Handle to it's
--- PipeReader.
+-- | Run xmobar on a Specific Screen & Return a Write Handle to it's
+-- HandleReader.
 --
 -- The process ID of the bar will be added to the `StatusBarStorage` so it
 -- can be killed on shutdown.
 runXmobar :: Config -> Int -> X Handle
 runXmobar c screenId = do
-    cacheDir <- getXMonadCacheDir
     iconDir <- Theme.getIconDirectory
-    let pipePath = cacheDir ++ "xmobar-" ++ show screenId ++ ".fifo"
-    (handle, processId) <- liftIO $ XmobarStub.runWithPipe pipePath c
+    (handle, processId) <- liftIO $ XmobarStub.run c
         { position = OnScreen screenId $ position c
         , iconRoot = iconDir
         }
@@ -186,7 +186,7 @@ long = xmobarConfig
         , Run $ Date "%a %d %b %H:%M" "date" 10
         ]
     , template = unwords
-        [ "%pipe%"
+        [ "%handle%"
         , "}{"
         , "%mpd%"
         , Theme.statusSeparator
@@ -217,7 +217,7 @@ withTray = long
 short :: Config
 short = long
     { template = unwords
-        [ "%pipe%"
+        [ "%handle%"
         , "}{"
         , Theme.date "%date%"
         , ""
