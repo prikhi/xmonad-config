@@ -48,6 +48,7 @@ packages:
 # Override default flag values for local packages and extra-deps
 flags:
     xmobar:
+        with_conduit: true
         with_mpd: true
         with_threaded: true
         with_xft: true
