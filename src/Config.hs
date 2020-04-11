@@ -122,7 +122,7 @@ myStartupHook =
             , "picom -b -cCf"
             , "hkhued"
             , "hkhue redshift"
-            , "unclutter -idle 2 -grab"
+            , "unclutter -idle 2"
             , "hs-notifications"
             , "keepassx ~/.passwords/pavans_passwords.kdb -min -lock"
             -- Apps
