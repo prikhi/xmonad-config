@@ -159,10 +159,10 @@ transparencyLogHook =
     where
         inactiveTransparency :: Rational
         inactiveTransparency =
-            0.9
+            0.95
         activeTransparency :: Rational
         activeTransparency =
-            0.98
+            0.985
         fade :: Query Rational
         fade = do
             unfocused <- isUnfocused
