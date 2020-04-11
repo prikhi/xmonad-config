@@ -1,8 +1,7 @@
-{-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE OverloadedStrings #-}
-module StatusBar where
+module StatusBar (startupHook, eventHook, stopHook) where
 
-import XMonad (X, ExtensionClass(..), Typeable, Event, ScreenId(S), liftIO, spawn)
+import XMonad (X, Event, ScreenId(S), spawn)
 import XMonad.Hooks.DynamicBars (dynStatusBarStartup, dynStatusBarEventHook)
 import Xmobar
     ( Config(..), XPosition(OnScreen, Top, TopP), Date(Date)
@@ -12,9 +11,7 @@ import Xmobar
 import Control.Monad (when)
 import Data.Monoid (All)
 import System.IO (Handle)
-import System.Posix (ProcessID, signalProcess, sigTERM)
 
-import qualified XMonad.Util.ExtensibleState as XS
 
 import qualified Theme
 import qualified XmobarStub
@@ -60,33 +57,8 @@ dynamic (S screenId) =
 -- | Kill all Status Bar & System Tray Processes.
 dynamicCleanup :: X ()
 dynamicCleanup =
-    terminateProcesses
+    XmobarStub.terminateProcesses
         >> stopSystemTray
-
-
--- Storage
---
--- TODO: Move to XmobarStub module.
-
--- | Persistent Storage for the list of Status Bar ProcessIDs.
-newtype StatusBarStorage
-    = StatusBarStorage [ProcessID]
-    deriving Typeable
-
-instance ExtensionClass StatusBarStorage where
-    initialValue = StatusBarStorage []
-
--- | Store the ProcessID of a Status Bar
-trackProcess :: ProcessID -> X ()
-trackProcess pid =
-    XS.modify (\(StatusBarStorage ps) -> StatusBarStorage $ pid : ps)
-
--- | Kill All the Stored Status Bar Processes.
-terminateProcesses :: X ()
-terminateProcesses =
-    XS.gets (\(StatusBarStorage ps) -> ps)
-        >>= liftIO . mapM_ (signalProcess sigTERM)
-        >> XS.put (StatusBarStorage [])
 
 
 -- System Tray
@@ -131,12 +103,10 @@ stopSystemTray =
 runXmobar :: Config -> Int -> X Handle
 runXmobar c screenId = do
     iconDir <- Theme.getIconDirectory
-    (handle, processId) <- liftIO $ XmobarStub.run c
+    XmobarStub.run c
         { position = OnScreen screenId $ position c
         , iconRoot = iconDir
         }
-    trackProcess processId
-    return handle
 
 
 -- | An Xmobar Config with just the Default Font & Colors Modified.
