@@ -10,6 +10,8 @@ You should also install:
 * `mpc` - control MPD
 * `scrot` - screenshots
 
+![Screenshot](screenshot.png)
+
 
 ## Usage
 
