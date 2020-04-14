@@ -1,3 +1,4 @@
+{-# LANGUAGE LambdaCase #-}
 module Theme where
 
 import XMonad (X, Window, withWindowSet, getXMonadDir)
@@ -182,6 +183,9 @@ data Icon
     | CurrentWorkspaceHasWindows
     | HiddenWorkspaceHasWindows
     | UrgentWorkspaceHasWindows
+    | TileLayout
+    | MirrorLayout
+    | FullscreenLayout
 
 icon :: Icon -> String
 icon i =
@@ -197,6 +201,12 @@ icon i =
                 "window"
             UrgentWorkspaceHasWindows ->
                 "windowurg"
+            TileLayout ->
+                "layouttiled"
+            MirrorLayout ->
+                "layoutmirror"
+            FullscreenLayout ->
+                "layoutfullscreen"
 
     in
         "<icon=" ++ name ++ ".xpm/>"
@@ -222,6 +232,8 @@ focusedScreenPP = xmobarPP
         pad statusSeparator
     , ppWsSep =
         ""
+    , ppLayout =
+        renderLayoutIcon
     , ppExtras =
         [ logAllWindowTitles renderWindowTitle
         ]
@@ -232,6 +244,15 @@ focusedScreenPP = xmobarPP
                 focusedTitle . pad . show <$> getName t
             else
                 unfocusedTitle . pad . show <$> getName t
+        renderLayoutIcon = \case
+            "Maximize Tall" ->
+                icon TileLayout
+            "Maximize Mirror Tall" ->
+                icon MirrorLayout
+            "Full" ->
+                icon FullscreenLayout
+            str ->
+                str
 
 -- | Similar to the `focusedScreenPP` but with every window title de-emphasized.
 unfocusedScreenPP  :: PP
