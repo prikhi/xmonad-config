@@ -265,7 +265,7 @@ myWorkspaces =
         , "draw"
         , "media"
         , "proj"
-        , "game"
+        , "learn"
         , "misc"
         ]
 
