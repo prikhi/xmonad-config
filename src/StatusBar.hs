@@ -139,7 +139,7 @@ long = xmobarConfig
             , Theme.networkUpload "<tx> KB ^" ++ Theme.networkDownload "v <rx> KB"
             ]
             25
-        , Run $ Weather "K7W4"
+        , Run $ Weather "KNYC"
             [ "-t"
             , "<tempF>°"
             ]
@@ -165,7 +165,7 @@ long = xmobarConfig
         , Theme.icon Theme.CPU
         , "%cpu%"
         , Theme.statusSeparator
-        , Theme.weather "%K7W4%"
+        , Theme.weather "%KNYC%"
         , Theme.statusSeparator
         , Theme.date "%date%"
         , ""
