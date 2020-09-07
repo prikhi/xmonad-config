@@ -460,6 +460,11 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
                 float windowId
       )
 
+    -- Lock Screen
+    , ( ( modm .|. controlMask .|. shiftMask, xK_Escape )
+      , spawn "dm-tool lock"
+      )
+
 
 
     -- EXTENSIONS
