@@ -441,6 +441,11 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
       , spawn "scrot -s -e 'gimp $f'"
       )
 
+    -- Toggle Between Headset & Speakers
+    , ( ( modm, xK_F10 )
+      , spawn "toggle-audio.sh"
+      )
+
     -- Toggle Workrave On & Off
     , ( ( modm, xK_F11 )
       , spawn "pkill workrave || workrave"
