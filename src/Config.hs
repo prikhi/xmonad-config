@@ -119,7 +119,7 @@ myStartupHook =
             , "pasystray"
             , "workrave"
             , "~/.bin/mailcheck.sh"
-            , "picom -b -cCf"
+            , "picom -b -cf"
             , "hkhued"
             , "hkhue redshift -g 1"
             , "unclutter -idle 2"
@@ -452,7 +452,7 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
       )
     -- Toggle Picom On & Off
     , ( ( modm, xK_F12 )
-      , spawn "pkill picom || picom -b -cCf"
+      , spawn "pkill picom || picom -b -cf"
       )
 
     -- Toggle Floating
