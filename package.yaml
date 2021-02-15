@@ -1,23 +1,13 @@
 ---
+name: xmonad-prikhi
+version: "0.1.0.0"
+github: "prikhi/xmonad-config"
+license: GPL-3.0
+author: "Pavan Rikhi"
+maintainer: "pavan.rikhi@gmail.com"
+copyright: "GPL-3.0"
 
-name:
-    xmonad-prikhi
-version:
-    "0.1.0.0"
-github:
-    "prikhi/xmonad-config"
-license:
-    GPL-3.0
-author:
-    "Pavan Rikhi"
-maintainer:
-    "pavan.rikhi@gmail.com"
-copyright:
-    "GPL-3.0"
-
-description:
-    My xmonad Configuration
-
+description: My xmonad Configuration
 
 dependencies:
     - base >= 4.7 && < 5
