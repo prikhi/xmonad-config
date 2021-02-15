@@ -46,7 +46,6 @@ executable:
     ghc-options:
         - -i
         - -ilib
-        - -fforce-recomp
         - -v0
         - -O2
         - -threaded
