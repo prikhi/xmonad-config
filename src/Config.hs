@@ -134,7 +134,7 @@ myStartupHook =
 
 myShutdownHook :: X ()
 myShutdownHook =
-    spawn "pkill keepassx && rm -f ~/.passwords/pavans_passwords.kdb.lock"
+    spawn "pkill keepassxc"
         >> StatusBar.stopHook
 
 -- }}}
