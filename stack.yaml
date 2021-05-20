@@ -1,15 +1,15 @@
 ---
-resolver: lts-17.2
+resolver: lts-17.12
 
 packages:
-    - .
-    - xmobar
-    - xmonad
-    - xmonad-contrib
+  - .
+  - xmobar
+  - xmonad
+  - xmonad-contrib
 
 flags:
-    xmobar:
-        with_mpd: true
-        with_threaded: true
-        with_xft: true
-        with_xpm: true
+  xmobar:
+    with_mpd: true
+    with_threaded: true
+    with_xft: true
+    with_xpm: true
