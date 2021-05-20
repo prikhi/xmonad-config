@@ -1,0 +1,37 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "xmonad-prikhi:lib"
+
+    - path: "././xmonad.hs"
+      component: "xmonad-prikhi:exe:xmonad-prikhi"
+
+    - path: "xmobar/src"
+      component: "xmobar:lib"
+
+    - path: "xmobar/app/Main.hs"
+      component: "xmobar:exe:xmobar"
+
+    - path: "xmobar/src"
+      component: "xmobar:test:XmobarTest"
+
+    - path: "xmobar/test"
+      component: "xmobar:test:XmobarTest"
+
+    - path: "xmobar/bench/main.hs"
+      component: "xmobar:bench:xmobarbench"
+
+    - path: "xmonad/src"
+      component: "xmonad:lib"
+
+    - path: "xmonad/./Main.hs"
+      component: "xmonad:exe:xmonad"
+
+    - path: "xmonad/util/GenerateManpage.hs"
+      component: "xmonad:exe:generatemanpage"
+
+    - path: "xmonad/tests"
+      component: "xmonad:test:properties"
+
+    - path: "xmonad-contrib/./"
+      component: "xmonad-contrib:lib"
