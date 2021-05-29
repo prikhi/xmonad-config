@@ -124,7 +124,7 @@ myStartupHook =
             , "hkhue redshift -g 1"
             , "unclutter -idle 2"
             , "hs-notifications"
-            , "keepassxc ~/.passwords/pavans_passwords.kdb"
+            , "keepassxc ~/.passwords/pavans_passwords.kdbx"
             -- Apps
             , "firefox"
             ]
