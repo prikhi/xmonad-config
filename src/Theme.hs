@@ -1,7 +1,7 @@
 {-# LANGUAGE LambdaCase #-}
 module Theme where
 
-import XMonad (X, Window, withWindowSet, getXMonadDir)
+import XMonad (X, Window, withWindowSet, cfgDir, asks, directories)
 import XMonad.Hooks.DynamicLog (PP(..), xmobarColor, pad, xmobarPP)
 import XMonad.Layout.IndependentScreens (unmarshallW)
 import XMonad.Util.NamedWindows (getName)
@@ -175,7 +175,7 @@ date =
 
 getIconDirectory :: X String
 getIconDirectory =
-    (++ "icons") <$> getXMonadDir
+    asks $ (++ "icons") . cfgDir . directories
 
 data Icon
     = Separator
