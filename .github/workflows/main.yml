@@ -34,6 +34,8 @@ jobs:
             stack-build-lts-${{ github.ref }}-
             stack-build-lts-
             stack-build-
+      - name: Install C Libs
+        run: sudo apt-get install libxrandr-dev
       - uses: haskell/actions/setup@v1
         with:
           enable-stack: true
@@ -64,6 +66,8 @@ jobs:
             stack-build-nightly-${{ steps.date.outputs.year }}-${{ steps.date.outputs.month }}-
             stack-build-nightly-${{ steps.date.outputs.year }}-
             stack-build-nightly-
+      - name: Install C Libs
+        run: sudo apt-get install libxrandr-dev
       - uses: haskell/actions/setup@v1
         with:
           enable-stack: true
@@ -94,6 +98,8 @@ jobs:
             cabal-build-${{ matrix.ghc }}-${{ github.ref }}-
             cabal-build-${{ matrix.ghc }}-
             cabal-build-
+      - name: Install C Libs
+        run: sudo apt-get install libxrandr-dev
       - uses: haskell/actions/setup@v1
         with:
           ghc-version: ${{ matrix.ghc }}
