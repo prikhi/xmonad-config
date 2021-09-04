@@ -21,6 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: recursive
       - name: Cache Stack Artifacts
         uses: actions/cache@v2
         with:
@@ -44,6 +46,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: recursive
       - name: Get Current Date
         id: date
         run: echo -e "::set-output name=year::$(date +%Y)\n::set-output name=month::$(date +%m)\n::set-output name=day::$(date +%d)"
@@ -76,6 +80,8 @@ jobs:
         ghc: ['8.8', '8.10', '9.0']
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: recursive
       - name: Cache Cabal Artifacts
         uses: actions/cache@v2
         with:
