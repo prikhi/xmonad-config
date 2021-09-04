@@ -40,7 +40,7 @@ jobs:
         with:
           enable-stack: true
           stack-no-global: true
-      - run: stack test --fast --haddock --pedantic --resolver lts-18
+      - run: stack test --fast --haddock --resolver lts-18
 
   # Stackage Nightly - Failures Allowed
   build-nightly:
@@ -72,7 +72,7 @@ jobs:
         with:
           enable-stack: true
           stack-no-global: true
-      - run: stack test --fast --haddock --pedantic --resolver nightly
+      - run: stack test --fast --haddock --resolver nightly
         continue-on-error: true
 
   # Cabal Builds w/ 3 Latest GHC Versions
