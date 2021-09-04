@@ -1,0 +1,53 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 9c84568d9bfb6d138c3841be1a69b73b53d3333faea9d65c88a1f6464e560ef0
+
+name:           xmonad-prikhi
+version:        0.1.0.0
+description:    My xmonad Configuration
+homepage:       https://github.com/prikhi/xmonad-config#readme
+bug-reports:    https://github.com/prikhi/xmonad-config/issues
+author:         Pavan Rikhi
+maintainer:     pavan.rikhi@gmail.com
+copyright:      GPL-3.0
+license:        GPL-3.0
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/prikhi/xmonad-config
+
+library
+  exposed-modules:
+      Config
+      StatusBar
+      Theme
+      XmobarStub
+  other-modules:
+      Paths_xmonad_prikhi
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , flow
+    , process
+    , unix
+    , xmobar
+    , xmonad
+    , xmonad-contrib
+  default-language: Haskell2010
+
+executable xmonad-prikhi
+  main-is: xmonad.hs
+  ghc-options: -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -i -ilib -v0 -O2 -threaded -rtsopts -with-rtsopts=-N -Wall
+  build-depends:
+      base >=4.7 && <5
+    , xmonad
+    , xmonad-prikhi
+  default-language: Haskell2010
