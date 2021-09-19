@@ -1,0 +1,4 @@
+packages: {xmonad,xmonad-contrib,xmobar}/*.cabal *.cabal
+
+package xmobar
+    flags: +with_mpd +with_xpm +with_utf8

@@ -76,34 +76,33 @@ jobs:
         continue-on-error: true
 
   # Cabal Builds w/ 3 Latest GHC Versions
-  # build-cabal:
-  #   name: GHC / Cabal
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       ghc: ['8.8', '8.10', '9.0']
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         submodules: recursive
-  #     - name: Cache Cabal Artifacts
-  #       uses: actions/cache@v2
-  #       with:
-  #         key: cabal-build-${{ matrix.ghc }}-${{ github.ref }}-${{ github.sha }}
-  #         path: |
-  #           ~/.cabal/packages/
-  #           ~/.cabal/store
-  #           dist-newstyle/
-  #         restore-keys: |
-  #           cabal-build-${{ matrix.ghc }}-${{ github.ref }}-
-  #           cabal-build-${{ matrix.ghc }}-
-  #           cabal-build-
-  #     - name: Install C Libs
-  #       run: sudo apt-get install libxrandr-dev libxss-dev libxpm-dev
-  #     - uses: haskell/actions/setup@v1
-  #       with:
-  #         ghc-version: ${{ matrix.ghc }}
-  #         cabal-version: latest
-  #         enable-stack: true
-  #     - run: cabal update
-  #     - run: cabal new-test --enable-tests && cabal new-haddock
+  build-cabal:
+    name: GHC / Cabal
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ghc: ['8.8', '8.10', '9.0']
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - name: Cache Cabal Artifacts
+        uses: actions/cache@v2
+        with:
+          key: cabal-build-${{ matrix.ghc }}-${{ github.ref }}-${{ github.sha }}
+          path: |
+            ~/.cabal/packages/
+            ~/.cabal/store
+            dist-newstyle/
+          restore-keys: |
+            cabal-build-${{ matrix.ghc }}-${{ github.ref }}-
+            cabal-build-${{ matrix.ghc }}-
+            cabal-build-
+      - name: Install C Libs
+        run: sudo apt-get install libxrandr-dev libxss-dev libxpm-dev
+      - uses: haskell/actions/setup@v1
+        with:
+          ghc-version: ${{ matrix.ghc }}
+          cabal-version: latest
+      - run: cabal update
+      - run: cabal build --haddock-all
