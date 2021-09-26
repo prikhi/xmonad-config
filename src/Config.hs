@@ -8,7 +8,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Actions.Navigation2D (withNavigation2DConfig, windowGo, windowSwap, Direction2D(..))
 import XMonad.Actions.OnScreen (viewOnScreen)
-import XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
+import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 import XMonad.Hooks.ManageHelpers (isInProperty)
 import XMonad.Hooks.DynamicBars (multiPPFormat)
@@ -72,8 +72,8 @@ myConfig = do
         }
         |> withUrgencyHook (borderUrgencyHook Theme.urgentBorder)
         |> withNavigation2DConfig def
-        |> fixMPVFullscreen
         |> ewmh
+        |> ewmhFullscreen
         |> docks
         |> (return :: a -> IO a)
 
@@ -391,11 +391,10 @@ myManageHook = composeAll <|
 
 -- {{{ EVENTS
 
--- | Respond to Client Fullscreen Requests & Respawn Status Bars When
--- Multi-Head Configuration Changes.
+-- | Respawn Status Bars When Multi-Head Configuration Changes.
 myEventHook :: Event -> X All
 myEventHook =
-    fullscreenEventHook <+> StatusBar.eventHook
+    StatusBar.eventHook
 
 -- }}}
 
@@ -688,30 +687,5 @@ onScreen (S screenId) ws =
 moveCursorToFocus :: X ()
 moveCursorToFocus =
     updatePointer (0.5, 0.65) (0.25, 0.25)
-
--- | Fix the fact that XMonad doesn't set _NET_WM_STATE_FULLSCREEN, which
--- breaks mpv's `f` key fullscreen keybind.
-fixMPVFullscreen :: XConfig l -> XConfig l
-fixMPVFullscreen conf = conf
-    { startupHook = startupHook conf <+> setSupportedWithFullscreen
-    }
-    where
-        setSupportedWithFullscreen :: X ()
-        setSupportedWithFullscreen = withDisplay $ \dpy -> do
-            r <- asks theRoot
-            a <- getAtom "_NET_SUPPORTED"
-            c <- getAtom "ATOM"
-            supp <- mapM getAtom ["_NET_WM_STATE_HIDDEN"
-                                ,"_NET_WM_STATE_FULLSCREEN"
-                                ,"_NET_NUMBER_OF_DESKTOPS"
-                                ,"_NET_CLIENT_LIST"
-                                ,"_NET_CLIENT_LIST_STACKING"
-                                ,"_NET_CURRENT_DESKTOP"
-                                ,"_NET_DESKTOP_NAMES"
-                                ,"_NET_ACTIVE_WINDOW"
-                                ,"_NET_WM_DESKTOP"
-                                ,"_NET_WM_STRUT"
-                                ]
-            io $ changeProperty32 dpy r a c propModeReplace (fmap fromIntegral supp)
 
 -- }}}
