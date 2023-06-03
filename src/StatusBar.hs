@@ -45,9 +45,9 @@ dynamic (S screenId) =
                 0 ->
                     withTray
                 1 ->
-                    long
-                2 ->
                     short
+                2 ->
+                    long
                 _ ->
                     blank
     in
@@ -134,7 +134,7 @@ long = xmobarConfig
             , "-S", Theme.mpdStopped "mpd stopped"
             , "-P", Theme.mpdTitle "<title>" ++ Theme.mpdSeparator ++ Theme.mpdArtist "<artist>"
             ] 10
-        , Run $ Network "enp0s25"
+        , Run $ Network "enp7s0"
             [ "-t"
             , Theme.networkUpload "<tx> KB ^" ++ Theme.networkDownload "v <rx> KB"
             ]
@@ -160,7 +160,7 @@ long = xmobarConfig
         , "}{"
         , "%mpd%"
         , Theme.statusSeparator
-        , "%enp0s25%"
+        , "%enp7s0%"
         , Theme.statusSeparator
         , Theme.icon Theme.CPU
         , "%cpu%"
