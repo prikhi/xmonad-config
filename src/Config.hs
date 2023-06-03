@@ -46,7 +46,7 @@ import qualified StatusBar
 myConfig = do
     screenCount_ <- countScreens
     def { terminal =
-            "urxvt"
+            "urxvtc"
         , modMask =
             mod4Mask
         , focusFollowsMouse =
@@ -115,7 +115,7 @@ myStartupHook =
             [ "udevil clean"
             , "mount ~/.passwords/"
             -- Services
-            , "urxvtd -f -o -q"
+            , "urxvtd -f -q"
             , "pasystray"
             , "workrave"
             , "~/.bin/mailcheck.sh"
@@ -159,7 +159,7 @@ transparencyLogHook =
     where
         inactiveTransparency :: Rational
         inactiveTransparency =
-            0.95
+            0.975
         activeTransparency :: Rational
         activeTransparency =
             0.985
@@ -280,6 +280,7 @@ floatingClasses =
     [ "pinentry"
     , "keepassx"
     , "Steam"
+    , "steam"
     , "VirtualBox"
     , "Edmarketconnector"
     ]
@@ -350,7 +351,8 @@ gameClasses =
     , "Pcsx2"
     , "Psychonauts"
     , "RogueCastle.bin.x86_64"
-    , "Steam"
+    , "steam"
+    , "steamwebhelper"
     , "Torchlight2.bin.x86_64"
     , "Wine"
     , "X3TC_main"
@@ -369,13 +371,13 @@ myManageHook = composeAll <|
     , className =? "Pale moon" --> shiftAndView 0 "www"
     , className =? "Firefox" --> shiftAndView 0 "www"
     , className =? "newmoon" --> shiftAndView 1 "www"
-    , className =? "Chromium" --> shiftAndView 1 "www"
+    , className =? "Chromium" --> shiftAndView 2 "www"
     ]
     ++ map (\name -> className =? name --> doFloat) floatingClasses
     ++ map (\name -> className =? name --> shiftAndView 0 "draw") graphicsClasses
     ++ map (\name -> className =? name --> shiftAndView 0 "chat") chatClasses
     ++ map (\name -> className =? name --> shiftAndView 0 "office") officeClasses
-    ++ map (\name -> className =? name --> shiftAndView 1 "media") mediaClasses
+    ++ map (\name -> className =? name --> shiftAndView 0 "media") mediaClasses
     ++ map (\name -> className =? name --> shiftAndView 0 "misc") vmClasses
     where
         isNotification :: Query Bool
