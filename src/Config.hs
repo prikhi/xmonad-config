@@ -279,8 +279,8 @@ floatingClasses :: [String]
 floatingClasses =
     [ "pinentry"
     , "keepassx"
-    , "Steam"
     , "steam"
+    , "steamwebhelper"
     , "VirtualBox"
     , "Edmarketconnector"
     ]
