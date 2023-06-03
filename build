@@ -1,9 +1,11 @@
 #!/bin/bash
 set -e
 
+export PATH="$HOME/.ghcup/bin/:$PATH"
+
 cd "${HOME}/.config/xmonad/"
 
 unset STACK_YAML
-stack build -j8
+stack build
 
 ln -f -T $(stack exec -- which xmonad-prikhi) $1
