@@ -7,7 +7,7 @@ name: CI Build
 on:
   # Run Daily
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
   # Run on Push
   push:
   # Run on Tag Creation
@@ -40,7 +40,7 @@ jobs:
         with:
           enable-stack: true
           stack-no-global: true
-      - run: stack test --fast --haddock --resolver lts-18
+      - run: stack test --fast --haddock
 
   # Stackage Nightly - Failures Allowed
   build-nightly:
@@ -81,7 +81,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ghc: ['8.8', '8.10', '9.0']
+        ghc: ["9.0", "9.2"]
     steps:
       - uses: actions/checkout@v2
         with:
