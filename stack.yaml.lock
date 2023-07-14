@@ -3,10 +3,21 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages: []
+packages:
+- completed:
+    name: libmpd
+    pantry-tree:
+      sha256: 0a9c3a98e6c6e6767eb97b376be1393bdca6710a42aa261ee40e3d1de81ed966
+      size: 5179
+    sha256: a9348fe8b9f0e845259a45a4323c42758f27e0b0b4ac3b626e1acc91777c0a44
+    size: 50385
+    url: https://github.com/peti/libmpd-haskell/archive/5737096a339edc265a663f51ad9d29baee262694.tar.gz
+    version: 0.10.0.0
+  original:
+    url: https://github.com/peti/libmpd-haskell/archive/5737096a339edc265a663f51ad9d29baee262694.tar.gz
 snapshots:
 - completed:
-    sha256: 4c972e067bae16b95961dbfdd12e07f1ee6c8fffabbfa05c3d65100b03f548b7
-    size: 650253
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/20/23.yaml
-  original: lts-20.23
+    sha256: bd34dcded0f9d502275871b7bcd9bbe356bf060276bc6b62fb9e8a225589c74c
+    size: 639151
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/21/2.yaml
+  original: lts-21.2

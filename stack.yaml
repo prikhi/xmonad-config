@@ -1,11 +1,15 @@
 ---
-resolver: lts-20.23
+resolver: lts-21.2
 
 packages:
   - .
   - xmobar
   - xmonad
   - xmonad-contrib
+
+extra-deps:
+  - github: peti/libmpd-haskell
+    commit: 5737096a339edc265a663f51ad9d29baee262694
 
 flags:
   xmonad-contrib:
