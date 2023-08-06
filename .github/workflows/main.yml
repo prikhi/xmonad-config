@@ -36,7 +36,7 @@ jobs:
             stack-build-
       - name: Install C Libs
         run: sudo apt-get install libxrandr-dev libxss-dev libxpm-dev libxft-dev
-      - uses: haskell/actions/setup@v1
+      - uses: haskell/actions/setup@v2
         with:
           enable-stack: true
           stack-no-global: true
@@ -68,7 +68,7 @@ jobs:
             stack-build-nightly-
       - name: Install C Libs
         run: sudo apt-get install libxrandr-dev libxss-dev libxpm-dev libxft-dev
-      - uses: haskell/actions/setup@v1
+      - uses: haskell/actions/setup@v2
         with:
           enable-stack: true
           stack-no-global: true
@@ -81,7 +81,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ghc: ["9.0", "9.2"]
+        ghc: ["9.2", "9.4"]
     steps:
       - uses: actions/checkout@v2
         with:
@@ -100,7 +100,7 @@ jobs:
             cabal-build-
       - name: Install C Libs
         run: sudo apt-get install libxrandr-dev libxss-dev libxpm-dev libxft-dev
-      - uses: haskell/actions/setup@v1
+      - uses: haskell/actions/setup@v2
         with:
           ghc-version: ${{ matrix.ghc }}
           cabal-version: latest
