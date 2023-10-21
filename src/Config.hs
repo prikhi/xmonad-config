@@ -443,8 +443,13 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
       )
 
     -- Toggle Between Headset & Speakers
-    , ( ( modm, xK_F10 )
+    , ( ( modm, xK_F9)
       , spawn "toggle-audio.sh"
+      )
+
+    -- Toggle Redshift On & Off
+    , ( ( modm, xK_F10 )
+      , spawn "toggle-redshift.sh"
       )
 
     -- Toggle Workrave On & Off
