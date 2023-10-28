@@ -127,6 +127,7 @@ myStartupHook =
             , "keepassxc ~/.passwords/pavans_passwords.kdbx"
             -- Apps
             , "firefox"
+            , "signal-desktop --start-in-tray"
             ]
     in
         StatusBar.startupHook
