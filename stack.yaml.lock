@@ -17,7 +17,7 @@ packages:
     url: https://github.com/peti/libmpd-haskell/archive/5737096a339edc265a663f51ad9d29baee262694.tar.gz
 snapshots:
 - completed:
-    sha256: 1d663bec402f77fa09fa3e8cf288c3c7eb18a1f28a5e0c331ac47adeacd21346
-    size: 640034
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/21/16.yaml
-  original: lts-21.16
+    sha256: 8e7996960d864443a66eb4105338bbdd6830377b9f6f99cd5527ef73c10c01e7
+    size: 719128
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/22/26.yaml
+  original: lts-22.26
