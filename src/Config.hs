@@ -278,8 +278,11 @@ floatingClasses :: [String]
 floatingClasses =
     [ "pinentry"
     , "keepassx"
+    , "Steam"
     , "steam"
     , "steamwebhelper"
+    , "Lutris"
+    , "battle.net.exe"
     , "VirtualBox"
     , "Edmarketconnector"
     ]
@@ -350,8 +353,10 @@ gameClasses =
     , "Pcsx2"
     , "Psychonauts"
     , "RogueCastle.bin.x86_64"
+    , "Steam"
     , "steam"
     , "steamwebhelper"
+    , "battle.net.exe"
     , "Torchlight2.bin.x86_64"
     , "Wine"
     , "X3TC_main"
