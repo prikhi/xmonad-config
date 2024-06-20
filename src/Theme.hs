@@ -175,7 +175,7 @@ date =
 
 getIconDirectory :: X String
 getIconDirectory =
-    asks $ (++ "icons") . cfgDir . directories
+    asks $ (++ "/icons") . cfgDir . directories
 
 data Icon
     = Separator
