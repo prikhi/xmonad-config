@@ -13,7 +13,6 @@ import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 import XMonad.Hooks.ManageHelpers (isInProperty)
 import XMonad.Hooks.DynamicBars (multiPPFormat)
 import XMonad.Hooks.FadeInactive (fadeOutLogHook, isUnfocused)
-import XMonad.Hooks.UrgencyHook (withUrgencyHook, borderUrgencyHook, focusUrgent)
 import XMonad.Layout.IndependentScreens
     ( PhysicalWorkspace, countScreens, withScreens, onCurrentScreen, workspaces'
     , marshall, unmarshallW, unmarshallS
@@ -70,7 +69,6 @@ myConfig = do
         , keys =
             myKeys
         }
-        |> withUrgencyHook (borderUrgencyHook Theme.urgentBorder)
         |> withNavigation2DConfig def
         |> ewmh
         |> ewmhFullscreen
@@ -491,11 +489,6 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
     -- Maximize
     , ( ( modm, xK_m )
       , withFocused (sendMessage . maximizeRestore)
-      )
-
-    -- Jump to Urgent Workspace
-    , ( ( modm, xK_t )
-      , focusUrgent
       )
 
     -- Cycle Through Workspaces
