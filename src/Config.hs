@@ -118,11 +118,11 @@ myStartupHook =
             , "workrave"
             , "~/.bin/mailcheck.sh"
             , "picom -b -cf"
-            , "hkhued"
             , "hkhue redshift -g 1"
             , "unclutter -idle 2"
             , "hs-notifications"
             , "keepassxc ~/.passwords/pavans_passwords.kdbx"
+            , "nvidia-settings --load-config-only --config=/home/prikhi/.nvidia-settings-rc"
             -- Apps
             , "firefox"
             , "signal-desktop --start-in-tray"
