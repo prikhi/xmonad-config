@@ -1,5 +1,5 @@
 ---
-resolver: lts-22.26
+resolver: lts-22.33
 
 packages:
   - .
@@ -8,8 +8,7 @@ packages:
   - xmonad-contrib
 
 extra-deps:
-  - github: peti/libmpd-haskell
-    commit: 5737096a339edc265a663f51ad9d29baee262694
+  - libmpd-0.10.0.1
 
 flags:
   xmonad-contrib:
