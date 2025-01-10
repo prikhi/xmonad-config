@@ -427,6 +427,17 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
       , spawn "mpc next"
       )
 
+    -- VOLUME
+    , ( ( noModMask, 0x1008ff11 )
+      , spawn "pactl set-sink-volume @DEFAULT_SINK@ -0.25dB"
+      )
+    , ( ( noModMask, 0x1008ff12 )
+      , spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+      )
+    , ( ( noModMask, 0x1008ff13 )
+      , spawn "pactl set-sink-volume @DEFAULT_SINK@ +0.25dB"
+      )
+
 
     -- MISC UTILITIES
 
