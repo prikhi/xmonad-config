@@ -429,13 +429,13 @@ myKeys c@XConfig { modMask = modm } = Map.fromList $
 
     -- VOLUME
     , ( ( noModMask, 0x1008ff11 )
-      , spawn "pactl set-sink-volume @DEFAULT_SINK@ -0.25dB"
+      , spawn "volume-control.sh down"
       )
     , ( ( noModMask, 0x1008ff12 )
-      , spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+      , spawn "volume-control.sh toggle-mute"
       )
     , ( ( noModMask, 0x1008ff13 )
-      , spawn "pactl set-sink-volume @DEFAULT_SINK@ +0.25dB"
+      , spawn "volume-control.sh up"
       )
 
 
