@@ -283,6 +283,7 @@ floatingClasses =
     , "steamwebhelper"
     , "Lutris"
     , "battle.net.exe"
+    , "heroic"
     , "VirtualBox"
     , "Edmarketconnector"
     ]
